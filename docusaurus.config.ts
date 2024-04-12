@@ -84,6 +84,10 @@ const config: Config = {
           label: 'Discord',
           position: 'right',
         },
+        // {
+        //   type: 'localeDropdown',
+        //   position: 'right',
+        // },
       ],
     },
     // algolia: {

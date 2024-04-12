@@ -4,7 +4,7 @@ sidebar_position: 3
 
 # $LOOPIN Token Plan
 
-The $LOOPIN token is the core cryptocurrency and protocol token of the PinFi protocol, primarily serving as the incentive mechanism within the $LOOPIN ecosystem.
+The $LOOPIN token is the core cryptocurrency and protocol token of the LooPIN protocol, primarily serving as the incentive mechanism within the LooPIN ecosystem. The token is designed to facilitate the seamless exchange of computing resources and promote the efficient utilization of GPU power across the network.
 
 ## Launch Details
 
