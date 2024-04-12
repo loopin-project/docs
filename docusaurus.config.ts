@@ -49,7 +49,7 @@ const config: Config = {
 
   themeConfig: {
     // Replace with your project's social card
-    image: 'img/LooPIN-social-card.jpg',
+    image: 'img/LooPIN-social-card.png',
     colorMode: {
       defaultMode: 'dark',
       disableSwitch: true,
