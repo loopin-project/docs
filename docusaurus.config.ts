@@ -6,6 +6,7 @@ const config: Config = {
   title: 'LooPIN Network Documents',
   tagline: 'PinFi for AI Computing',
   favicon: 'img/favicon.ico',
+  scripts: [{src: 'https://visit.vemo.cc/js/script.js', async: true, defer: true, 'data-domain': 'docs.loopin.network'}],
 
   // Set the production url of your site here
   url: 'https://docs.loopin.network/',
