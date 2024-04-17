@@ -66,6 +66,7 @@ const config: Config = {
       logo: {
         alt: 'LooPIN Logo',
         src: 'img/loopin_logo.svg',
+        href: "https://loopin.network/"
       },
       items: [
         {
