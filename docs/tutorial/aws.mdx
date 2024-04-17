@@ -1,20 +1,20 @@
 ---
-sidebar_position: 3
+sidebar_position: 1
 ---
 
-# Lambda Cloud
+# Amazon AWS
 
-## What is Lambda Cloud
+## What is Amazon AWS
 
-[Lambda Cloud](https://lambdalabs.com/) is known as the GPU Cloud for AI, providing both on-demand and reserved cloud NVIDIA GPUs tailored for AI training and inference tasks.
+[Amazon AWS](https://aws.amazon.com/) is the world’s most comprehensive and broadly adopted cloud, offering over 200 fully featured services from data centers globally.
 
-## How to register and create a new instance in Lambda Cloud
+## How to create a new instance in Amazon AWS
 
-The process to register and start using Lambda Cloud includes a series of straightforward steps, from account creation to instance setup.
+The process to register and start using AWS includes a series of straightforward steps.
 
-export const ArcadeLambda = () => (
+export const ArcadeAWS = () => (
     <div style={{ position: "relative", paddingBottom: "calc(55.1% + 41px)", height: 0, width: "100%", borderRadius: "10px" }}>
-        <iframe src={"https://demo.arcade.software/rIrKdN2Waci8XTyndOAZ?embed&show_copy_link=true"}
+        <iframe src={"https://demo.arcade.software/t1V9HNRTnPdEiwGo1Slg?embed&show_copy_link=true"}
                 title="Onboard"
                 loading="lazy"
                 allowFullScreen
@@ -24,47 +24,42 @@ export const ArcadeLambda = () => (
     </div>
 )
 
-<ArcadeLambda/>
+<ArcadeAWS/>
 
-### Register a new account
+### Create a New Instance
 
-1. **Sign up for a new account:** Enter your personal information and complete the email verification process.
-2. **Update billing and payment information:** Enter your payment details to enable account billing.
-
-### Update the Firewall settings
-
-3. **Configure Firewall settings (Important):** The LooPIN Client requires all inbound ports to be open for seamless connectivity.
-- Go to Add rules
+1. **Navigate to the EC2 Dashboard:**
+- Access the Amazon Elastic Compute Cloud (EC2) section. If it's not immediately visible, use the search bar at the top to find it.
+2. **Launch an Instance:**
+- Click on the "Launch Instance" button to start the setup process.
+3. **Select an Amazon Machine Image (AMI):**
+- For this tutorial, select the Ubuntu 22.04 LTS (HVM) AMI, which is optimized for stability and performance.
+4. **Choose an Instance Type:**
+- We recommend the p3.2xlarge instance type, which includes an Nvidia V100 GPU, suitable for computing-intensive applications.
+5. **Configure Key Pairs:**
+- If you do not have an existing key pair, create a new one. Name the key pair "loopin" and download it. Ensure you save it securely as it's necessary for SSH access.
+6. **Configure Firewall Settings (Important):**
+- During the network settings phase, make important adjustments to allow for proper connectivity:
+- Edit Network Settings
 - Select Type: `All TCP`
-- Set Port range: `1-65535`
-- Specify Source: `0.0.0.0/0`
-
-### Create a new instance
-
-4. **Instance creation:**
-- Select an instance type. Note: Only the instances that participate in our liquidity pool allow staking to earn LooPIN rewards. More instances will be added to the liquidity pool progressively.
-- Choose any available location; location choice does not impact the setup.
-- Skip attaching any filesystem.
-
-5. **SSH Key addition:**
-- Generate a new SSH key if you don't have one; for demonstration, we use a key named `LooPIN`.
-- Download the key file named `LooPIN.pem`.
-
-### Connect to your instance
-
-6. **Initialize and connect to your instance:**
-- Wait until your instance is up and running.
-- Copy the IP address provided.
-- Connect via SSH by opening your terminal and entering:
+- Set Port range: `0-65535` (Default)
+- Choose Source type: `Anywhere` (Default)
+- Specify Source: `0.0.0.0/0` (Default)
+7. **Configure Storage:**
+- Allocate at least 100GB of storage for your instance to ensure sufficient space for applications and data.
+8. **Initialize and Connect to Your Instance:**
+- After launching, wait for your instance to start.
+- Copy the provided IP address.
+- To connect via SSH, open your terminal and type:
 ```
-ssh -i LooPIN.pem ubuntu@<your-ip>
+ssh -i loopin.pem ubuntu@<your-ip>
 ```
-- If using another SSH manager, such as 1Password, try:
+- For users of alternate SSH managers, like 1Password, the command is slightly different:
 ```
-ssh -o "IdentitiesOnly yes" -i LooPIN.pem ubuntu@<your-ip>
- ```
+ssh -o "IdentitiesOnly yes" -i loopin.pem ubuntu@<your-ip>
+```
 
-## Connect your Lambda Cloud Instance to LooPIN Network
+## Connect your AWS Instance to LooPIN Network
 
 export const ArcadeOnboard = () => (
     <div style={{ position: "relative", paddingBottom: "calc(55.1% + 41px)", height: 0, width: "100%", borderRadius: "10px" }}>

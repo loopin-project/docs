@@ -1,20 +1,20 @@
 ---
-sidebar_position: 3
+sidebar_position: 2
 ---
 
-# Lambda Cloud
+# FluidStack
 
-## What is Lambda Cloud
+## What is FluidStack
 
-[Lambda Cloud](https://lambdalabs.com/) is known as the GPU Cloud for AI, providing both on-demand and reserved cloud NVIDIA GPUs tailored for AI training and inference tasks.
+[FluidStack](https://console.fluidstack.io) Unlimited scale AI & LLM training with FluidStack. Access 50000+ GPUs including H100s and A100s from a global data center network.
 
 ## How to register and create a new instance in Lambda Cloud
 
-The process to register and start using Lambda Cloud includes a series of straightforward steps, from account creation to instance setup.
+The process to start using FluidStack includes a series of straightforward steps.
 
-export const ArcadeLambda = () => (
+export const ArcadeFluidStack = () => (
     <div style={{ position: "relative", paddingBottom: "calc(55.1% + 41px)", height: 0, width: "100%", borderRadius: "10px" }}>
-        <iframe src={"https://demo.arcade.software/rIrKdN2Waci8XTyndOAZ?embed&show_copy_link=true"}
+        <iframe src={"https://demo.arcade.software/I3WqcSBlzZZ29ldOwrEa?embed&show_copy_link=true"}
                 title="Onboard"
                 loading="lazy"
                 allowFullScreen
@@ -24,47 +24,36 @@ export const ArcadeLambda = () => (
     </div>
 )
 
-<ArcadeLambda/>
+<ArcadeFluidStack/>
 
-### Register a new account
+### Create a New Instance
 
-1. **Sign up for a new account:** Enter your personal information and complete the email verification process.
-2. **Update billing and payment information:** Enter your payment details to enable account billing.
+1. **Start Instance Creation:**
+- Click on "Virtual Machine" in the left side of the dashboard to begin setting up a new instance.
+2. **Select OS Template:**
+- Choose "Ubuntu 22.04 (Plain)" as the operating system template for a clean and minimal setup.
+3. **Select Instance Type:**
+- Opt for a GPU instance, specifically the A100 PCIE 80GB, which offers robust performance for demanding applications.
+4. **Set Up Credentials:**
+- If you have not yet set up an SSH key, select "add a new SSH key" and follow the provided steps to create and register a key.
+5. **Deploy the Instance:**
+- Click "Deploy" to initiate the creation of your instance.
 
-### Update the Firewall settings
+6. **Monitor Instance Setup:**
+- Wait for the instance to be fully operational and note down the IP address once it's displayed.
 
-3. **Configure Firewall settings (Important):** The LooPIN Client requires all inbound ports to be open for seamless connectivity.
-- Go to Add rules
-- Select Type: `All TCP`
-- Set Port range: `1-65535`
-- Specify Source: `0.0.0.0/0`
+### Connect to Your Instance
 
-### Create a new instance
-
-4. **Instance creation:**
-- Select an instance type. Note: Only the instances that participate in our liquidity pool allow staking to earn LooPIN rewards. More instances will be added to the liquidity pool progressively.
-- Choose any available location; location choice does not impact the setup.
-- Skip attaching any filesystem.
-
-5. **SSH Key addition:**
-- Generate a new SSH key if you don't have one; for demonstration, we use a key named `LooPIN`.
-- Download the key file named `LooPIN.pem`.
-
-### Connect to your instance
-
-6. **Initialize and connect to your instance:**
-- Wait until your instance is up and running.
-- Copy the IP address provided.
-- Connect via SSH by opening your terminal and entering:
+7. **Initialize and Connect to Your Instance:**
+- Ensure that your instance is active and the IP address is ready.
+- To establish a secure SSH connection, open your terminal and enter:
 ```
-ssh -i LooPIN.pem ubuntu@<your-ip>
+ssh ubuntu@<your-ip>
 ```
-- If using another SSH manager, such as 1Password, try:
-```
-ssh -o "IdentitiesOnly yes" -i LooPIN.pem ubuntu@<your-ip>
- ```
+- This command initiates a secure shell connection to your instance, allowing you to start managing it remotely.
 
-## Connect your Lambda Cloud Instance to LooPIN Network
+
+## Connect your FluidStack Instance to LooPIN Network
 
 export const ArcadeOnboard = () => (
     <div style={{ position: "relative", paddingBottom: "calc(55.1% + 41px)", height: 0, width: "100%", borderRadius: "10px" }}>
