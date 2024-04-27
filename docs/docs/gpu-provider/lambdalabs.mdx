@@ -1,0 +1,119 @@
+---
+sidebar_position: 3
+---
+
+# Lambda Cloud
+
+## What is Lambda Cloud
+
+[Lambda Cloud](https://lambdalabs.com/) is known as the GPU Cloud for AI, providing both on-demand and reserved cloud NVIDIA GPUs tailored for AI training and inference tasks.
+
+## How to register and create a new instance in Lambda Cloud
+
+The process to register and start using Lambda Cloud includes a series of straightforward steps, from account creation to instance setup.
+
+export const ArcadeLambda = () => (
+    <div style={{ position: "relative", paddingBottom: "calc(55.1% + 41px)", height: 0, width: "100%", borderRadius: "10px" }}>
+        <iframe src={"https://demo.arcade.software/rIrKdN2Waci8XTyndOAZ?embed&show_copy_link=true"}
+                title="Onboard"
+                loading="lazy"
+                allowFullScreen
+                allow="clipboard-write"
+                style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", colorScheme: "dark", borderRadius: "10px" }}>
+        </iframe>
+    </div>
+)
+
+<ArcadeLambda/>
+
+### Register a new account
+
+1. **Sign up for a new account:** Enter your personal information and complete the email verification process.
+2. **Update billing and payment information:** Enter your payment details to enable account billing.
+
+### Update the Firewall settings
+
+3. **Configure Firewall settings (Important):** The LooPIN Client requires all inbound ports to be open for seamless connectivity.
+- Go to Add rules
+- Select Type: `All TCP`
+- Set Port range: `1-65535`
+- Specify Source: `0.0.0.0/0`
+
+### Create a new instance
+
+4. **Instance creation:**
+- Select an instance type. Note: Only the instances that participate in our liquidity pool allow staking to earn LooPIN rewards. More instances will be added to the liquidity pool progressively.
+- Choose any available location; location choice does not impact the setup.
+- Skip attaching any filesystem.
+
+5. **SSH Key addition:**
+- Generate a new SSH key if you don't have one; for demonstration, we use a key named `LooPIN`.
+- Download the key file named `LooPIN.pem`.
+
+### Connect to your instance
+
+6. **Initialize and connect to your instance:**
+- Wait until your instance is up and running.
+- Copy the IP address provided.
+- Connect via SSH by opening your terminal and entering:
+```
+ssh -i LooPIN.pem ubuntu@<your-ip>
+```
+- If using another SSH manager, such as 1Password, try:
+```
+ssh -o "IdentitiesOnly yes" -i LooPIN.pem ubuntu@<your-ip>
+ ```
+
+## Connect your Lambda Cloud Instance to LooPIN Network
+
+export const ArcadeOnboard = () => (
+    <div style={{ position: "relative", paddingBottom: "calc(55.1% + 41px)", height: 0, width: "100%", borderRadius: "10px" }}>
+        <iframe src={"https://demo.arcade.software/Dnlp5al4d04puzatvEDY?embed&show_copy_link=true"}
+                title="Onboard"
+                loading="lazy"
+                allowFullScreen
+                allow="clipboard-write"
+                style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", colorScheme: "dark", borderRadius: "10px" }}>
+        </iframe>
+    </div>
+)
+
+<ArcadeOnboard/>
+
+### Prerequisites
+
+Before you get started, ensure you meet the following requirements:
+
+- A stable network connection and open ports for cluster access.
+- An **Ubuntu system** with **Nvidia GPUs** installed, as currently, LooPIN only supports this configuration.
+
+### Steps to Join LooPIN
+
+1. **Register on LooPIN**: Head over to [loopin.network](https://loopin.network) and sign up using your email or Google account.
+2. **Prepare Your Machine**: Ensure you have a bare metal machine with an Nvidia GPU. Navigate to the "server" section on the navbar and click on "Deploy a new machine".
+3. **CLI Worker Registration**:
+ - Open a terminal on your Ubuntu system.
+ - Run the following command to register your machine as a LooPIN worker (Find it in your guidance page):
+```bash
+curl -fsSL https://files.loopin.network/install.sh | sudo bash -s -- --code <your-unique-code>
+```
+ - This command downloads and executes the LooPIN installation script, registering your machine with the provided unique code.
+4. **Installation and Verification**: The script will check if your machine meets the requirements and will install necessary drivers, including the Nvidia GPU driver. It will then verify your setup and register your worker. Upon successful installation, you should see the message:
+```bash
+LooPIN Client Connected! Waiting for the on-chain verification...
+```
+This indicates that the client application is installed and awaiting connection. The first-time connection may take approximately 5-10 minutes, depending on your network speed.
+
+5. **Join the Cluster**: Once your machine connects to our cluster and shows an online tag, you are ready to contribute your idle GPU hours to the pool or engage in liquidity swapping.
+
+### What You'll Need
+
+For a smooth setup, ensure you have:
+
+- **A stable internet connection** to download necessary files and communicate with the LooPIN network.
+- **An Ubuntu system with Nvidia GPUs**: This is crucial for the hardware compatibility with LooPIN's requirements.
+
+By following these steps, you'll be fully set to start leveraging your hardware on the LooPIN network.
+
+Go to [Liquidity Tutorial](docs/quick-start/liquidity.mdx) and [Swap Tutorial](docs/quick-start/swap.mdx) for more.
+

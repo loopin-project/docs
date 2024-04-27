@@ -1,0 +1,124 @@
+---
+sidebar_position: 3
+---
+
+# Lambda Cloud
+
+## Lambda Cloud 简介
+
+[Lambda Cloud](https://lambdalabs.com/) 是专门为AI训练和推理任务设计的GPU云服务平台，提供按需和预留的云NVIDIA GPU。
+
+## 如何在Lambda Cloud中注册及创建新实例
+
+以下是在Lambda Cloud注册并启用的步骤，从创建账户到配置实例。
+
+export const ArcadeLambda = () => (
+    <div style={{ position: "relative", paddingBottom: "calc(55.1% + 41px)", height: 0, width: "100%", borderRadius: "10px" }}>
+        <iframe src={"https://demo.arcade.software/rIrKdN2Waci8XTyndOAZ?embed&show_copy_link=true"}
+                title="Onboard"
+                loading="lazy"
+                allowFullScreen
+                allow="clipboard-write"
+                style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", colorScheme: "dark", borderRadius: "10px" }}>
+        </iframe>
+    </div>
+)
+
+<ArcadeLambda/>
+
+### 注册新账户
+
+1. **注册新账户：** 填写个人资料，并完成电子邮件验证。
+2. **填写账单及支付信息：** 输入支付详情，以激活账户计费功能。
+
+### 设置防火墙
+
+3. **配置防火墙（重要）：** 为了确保LooPIN Client能够无缝连接，请开放所有入站端口。
+
+添加规则
+- 选择类型：`All TCP`
+- 端口范围：`1-65535`
+- 来源设定：`0.0.0.0/0`
+
+### 创建新实例
+
+4. **创建实例：**
+- 选择一种实例类型。注意：只有参与流动性池的实例才能通过质押获取LooPIN奖励，我们将逐步扩大流动性池。
+- 任选位置，位置选择不会影响实例配置。
+- 不需要附加文件系统。
+
+5. **添加SSH密钥：**
+- 若无现成密钥，请新建一个，本示例中使用的密钥名为`LooPIN`。
+- 下载密钥文件`LooPIN.pem`。
+
+### 连接到您的实例
+
+6. **启动并连接实例：**
+- 等待实例启动完毕。
+- 记录下提供的IP地址。
+- 开启终端，使用以下命令通过SSH连接：
+```
+ssh -i LooPIN.pem ubuntu@<your-ip>
+```
+- 如使用其他SSH管理工具，如1Password，可尝试：
+```
+ssh -o "IdentitiesOnly yes" -i LooPIN.pem ubuntu@<your-ip>
+ ```
+
+## 将您的Lambda Cloud实例连接至LooPIN网络
+
+export const ArcadeOnboard = () => (
+    <div style={{ position: "relative", paddingBottom: "calc(55.1% + 41px)", height: 0, width: "100%", borderRadius: "10px" }}>
+        <iframe src={"https://demo.arcade.software/Dnlp5al4d04puzatvEDY?embed&show_copy_link=true"}
+                title="Onboard"
+                loading="lazy"
+                allowFullScreen
+                allow="clipboard-write"
+                style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", colorScheme: "dark", borderRadius: "10px" }}>
+        </iframe>
+    </div>
+)
+
+<ArcadeOnboard/>
+
+## 准备工作
+
+在开始之前，请确保您满足以下条件：
+
+- 保持网络连接稳定，并确保端口开放，以便访问集群。
+- 您需要一台安装了 Nvidia GPU 的 Ubuntu 系统，目前 LooPIN 仅支持此配置。
+
+## 上手指南
+
+请跟随我们的 互动式教程 进行快速且简单的设置。
+
+### 如何加入 LooPIN
+
+1. **注册 LooPIN**: 访问 [loopin.network](https://loopin.network)，使用您的电子邮件或 Google 账户进行注册。
+2. **配置您的设备**: 确保您有一台装有 Nvidia GPU 的裸机。在导航栏中找到“服务器”一栏，点击“部署新机器”。
+3. **命令行界面工作注册**:
+ - 在 Ubuntu 系统中打开终端。
+ - 执行以下命令，将您的设备注册为 LooPIN 工作节点（具体命令参见指导页面）：
+```bash
+curl -fsSL https://files.loopin.network/install.sh | sudo bash -s -- --code <your-unique-code>
+```
+ - 此命令将下载并执行安装脚本，用您的唯一代码注册设备。
+4. **安装及验证**: 脚本会检测设备是否符合要求，并安装必要的驱动程序，包括 Nvidia GPU 驱动。完成后会进行设备验证并完成注册。安装成功后，您将看到以下提示：
+```bash
+LooPIN Client Connected! Waiting for the on-chain verification...
+```
+这表示客户端程序已安装并在等待网络连接。首次连接大约需要5-10分钟，具体时间取决于网络速度。
+
+5. **接入集群**: 一旦您的设备成功连接到我们的集群并显示在线状态，您便可以开始利用您的空闲 GPU 时间参与到共享池中或进行流动性交换。
+
+## 安装需要注意
+
+为确保安装顺利进行，请准备：
+
+- **稳定的网络连接**: 以便下载所需文件及与 LooPIN 网络进行通信。
+- **装有 Nvidia GPU 的 Ubuntu 系统**: 这一点对于确保硬件与 LooPIN 的兼容性至关重要。
+
+按照这些步骤操作，您将能够充分利用您的硬件资源，在 LooPIN 网络上发挥作用。
+
+前往 [质押流动池](docs/quick-start/liquidity.mdx) 和 [买卖机时](docs/quick-start/swap.mdx) 了解更多。
+
