@@ -1,0 +1,385 @@
+---
+sidebar_position: 1
+---
+
+# Finetune Llama3 in Two Minutes
+
+In specialized business scenarios, leveraging a dedicated dataset allows a finely tuned large-scale model to compete with GPT-4 across various tasks. It supports on-premises deployment to safeguard privacy and also reduces computational costs. Llama3, the most potent open-source foundational large model currently available, is particularly well-suited for applications in natural language processing, machine translation, text generation, question-answering systems, and chatbots.
+
+Even if foundational large models like Llama3 do not initially support Chinese, fine-tuning enables the addition of Chinese language support. This tutorial demonstrates how to utilize GPU resources provided by LooPIN to introduce new training materials to the large model, thus extending its capabilities.
+
+## Preparation
+
+This guide will instruct you on setting up the environment, preparing data, training, deploying, and saving the model. Fine-tuning on a graphics card with 8G VRAM takes less than two minutes, and the fine-tuned model can be quantized to 4bit, enabling smooth chat-based inference on a CPU.
+
+We will employ the following open-source software libraries:
+
+### Unsloth Open Source Fine-Tuning Tool for LLMs
+
+Unsloth: GitHub - [Unsloth GitHub](https://github.com/unslothai/unsloth)
+
+Unsloth integrates model fine-tuning tools, enhancing the speed by 2-5 times and reducing memory usage by 70% when fine-tuning models like Mistral, Gemma, and Llama.
+
+### Chinese Command Dataset
+
+The existing datasets for fine-tuning LLMs in Chinese command tasks are predominantly in English or do not align with the interaction patterns of Chinese users in real-world scenarios.
+
+Addressing this, research conducted by ten collaborating institutions introduced the COIG-CQIA (Chinese Open Instruction Generalist - Quality Is All You Need), a high-quality dataset for fine-tuning Chinese commands. The data, sourced from Q&A communities, Wikipedia, examination questions, and existing NLP datasets, has undergone rigorous filtering and processing.
+
+We will use 8000 data entries from Baidu Tieba's Ruozhiba Bar for fine-tuning: [ruozhiba-llama3-tt](https://huggingface.co/datasets/kigner/ruozhiba-llama3-tt/tree/main)
+
+## Initiating Model Training
+
+### Project Overview
+
+### Setting up the GPU Instance
+
+For detailed interactive guidance, visit: [LooPIN Liquidity Pool](/docs/quick-start/swap)
+
+**1. LooPIN Liquidity Pool:**
+
+Navigate to LooPIN's liquidity pool ([LooPIN Network Pool](https://loopin.network/pool)), use $LOOPIN tokens to purchase GPU time. Select an appropriate GPU model, such as the RTX 3080, based on your needs and budget from [GPU UserBenchmark](https://gpu.userbenchmark.com/).
+
+**2. Token Exchange for GPU Resources:**
+
+- Choose the required amount of $LOOPIN tokens.
+- Adjust the number of GPUs using the slider.
+- Confirm the transaction amount and complete the purchase.
+
+**3. Access Jupyter Notebook:**
+
+Post-transaction, access Jupyter Notebook via your remote server in the **Server** area under **Rented Servers**. Instance initialization typically requires 2-4 minutes.
+
+**4. GPU Verification with nvidia-smi:**
+
+In Jupyter Notebook, open a new terminal window, execute the nvidia-smi command to verify GPU activation.
+
+```shell
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 550.54.15              Driver Version: 550.54.15      CUDA Version: 12.4     |
+|-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA GeForce RTX 3080        Off |   00000000:01:00.0 Off |                  N/A |
+|  0%   39C    P8             21W /  350W |      12MiB /  12288MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI        PID   Type   Process name                              GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
++-----------------------------------------------------------------------------------------+
+```
+
+### Installing the Unsloth Open Source Training Framework
+
+#### 1. Verify Unsloth Installation Version
+
+Refer to the official Unsloth readme for the appropriate version ([Unsloth GitHub](https://github.com/unslothai/unsloth?tab=readme-ov-file))
+
+```python
+import torch; print('cuda:', torch.version.cuda, '\nPytorch:', torch.__version__)
+```
+
+Response:
+
+```
+cuda: 12.1
+Pytorch: 2.2.0+cu121
+```
+
+```shell
+pip install "unsloth[cu121-ampere-torch220] @ git+https://github.com/unslothai/unsloth.git"
+```
+
+Note: For the latest RTX 30xx or more advanced GPUs, select the `"ampere"` path.
+
+#### 2. Download the Llama-7B Base Model from Huggingface
+
+Quickly load pre-trained models and tokenizers using Unsloth.
+
+```python
+from unsloth import FastLanguageModel
+import torch
+max_seq_length = 2048 # Choose any! We auto support RoPE Scaling internally!
+dtype = None # None for auto detection. Float16 for Tesla T4, V100, Bfloat16 for Ampere+
+load_in_4bit = True # Use 4bit quantization to reduce memory usage. Can be False.
+
+model, tokenizer = FastLanguageModel.from_pretrained(
+    model_name = "unsloth/llama-3-8b-bnb-4bit",
+    max_seq_length = max_seq_length,
+    dtype = dtype,
+    load_in_4bit = load_in_4bit,
+)
+```
+
+Await model download completion:
+
+```shell
+config.json: 100%
+ 1.14k/1.14k [00:00<00:00, 72.1kB/s]
+==((====))==  Unsloth: Fast Llama patching release 2024.4
+   \\   /|    GPU: NVIDIA GeForce RTX 3080. Max memory: 11.756 GB. Platform = Linux.
+O^O/ \_/ \    Pytorch: 2.2.0+cu121. CUDA = 8.6. CUDA Toolkit = 12.1.
+\        /    Bfloat16 = TRUE. Xformers = 0.0.24. FA = True.
+ "-____-"     Free Apache license: http://github.com/unslothai/unsloth
+model.safetensors: 100%
+ 5.70G/5.70G [00:52<00:00, 88.6MB/s]
+generation_config.json: 100%
+ 131/131 [00:00<00:00, 8.23kB/s]
+tokenizer_config.json: 100%
+ 50.6k/50.6k [00:00<00:00, 2.55MB/s]
+tokenizer.json: 100%
+ 9.09M/9.09M [00:00<00:00, 11.6MB/s]
+special_tokens_map.json: 100%
+ 449/449 [00:00<00:00, 28.4kB/s]
+```
+
+For fine-tuning additional base models, locate and replace `model_name` here ([Unsloth Huggingface](https://huggingface.co/unsloth)).
+
+#### 3. Setup Lora Adapter
+
+During fine-tuning, update only 1%-10% of the model parameters.
+
+```python
+model = FastLanguageModel.get_peft_model(
+    model,
+    r = 16, # Choose any number > 0 ! Suggested 8, 16, 32, 64, 128
+    target_modules = ["q_proj", "k_proj", "v_proj", "o_proj",
+                      "gate_proj", "up_proj", "down_proj",],
+    lora_alpha = 16,
+    lora_dropout = 0, # Supports any, but = 0 is optimized
+    bias = "none",    # Supports any, but = "none" is optimized
+    # [NEW] "unsloth" uses 30% less VRAM, fits 2x larger batch sizes!
+    use_gradient_checkpointing = "unsloth", # True or "unsloth" for very long context
+    random_state = 3407,
+    use_rslora = False,  # We support rank stabilized LoRA
+    loftq_config = None, # And LoftQ
+)
+```
+
+Output awaited:
+
+```shell
+Unsloth 2024.4 patched 32 layers with 32 QKV layers, 32 O layers, and 32 MLP layers.
+```
+
+#### 4. Prepare the Fine-Tuning Dataset
+
+Fine-tune using a subset of a high-quality Chinese command dataset.
+
+```python
+from datasets import load_dataset
+
+dataset = load_dataset("kigner/ruozhiba-llama3-tt", split = "train")
+dataset = dataset.map(formatting_prompts_func, batched = True)
+```
+
+Await data download completion:
+
+```shell
+Downloading readme: 100%
+ 28.0/28.0 [00:00<00:00, 4.94kB/s]
+Downloading data: 100%
+ 616k/616k [00:00<00:00, 4.03MB/s]
+Generating train split: 100%
+ 1496/1496 [00:00<00:00, 150511.62 examples/s]
+Map: 100%
+ 1496/1496 [00:00<00:00, 152505.32 examples/s]
+```
+
+#### 5. Model Training
+
+Utilize Huggingface's `SFTTrainer` for the training framework, with comprehensive documentation available at [SFT Trainer Documentation](https://colab.research.google.com/corgiredirector?site=https%3A%2F%2Fhuggingface.co%2Fdocs%2Ftrl%2Fsft_trainer).
+
+```python
+from trl import SFTTrainer
+from transformers import TrainingArguments
+
+trainer = SFTTrainer(
+    model = model,
+    tokenizer = tokenizer,
+    train_dataset = dataset,
+    dataset_text_field = "text",
+    max_seq_length = max_seq_length,
+    dataset_num_proc = 2,
+    packing = False, # Can make training 5x faster for short sequences.
+    args = TrainingArguments(
+        per_device_train_batch_size = 2,
+        gradient_accumulation_steps = 4,
+        warmup_steps = 5,
+        max_steps = 60,
+        learning_rate = 2e-4,
+        fp16 = not torch.cuda.is_bf16_supported(),
+        bf16 = torch.cuda.is_bf16_supported(),
+        logging_steps = 1,
+        optim = "adamw_8bit",
+        weight_decay = 0.01,
+        lr_scheduler_type = "linear",
+        seed = 3407,
+        output_dir = "outputs",
+    ),
+)
+
+trainer_stats = trainer.train()
+```
+
+During training, adjust `max_steps` for training steps, set the `learning_rate`, and specify `output_dir` for the model's output directory. Initiate training once configurations are set.
+
+```shell
+max_steps is given, it will override any value given in num_train_epochs
+==((====))==  Unsloth - 2x faster free finetuning | Num GPUs = 1
+   \\   /|    Num examples = 1,496 | Num Epochs = 1
+O^O/ \_/ \    Batch size per device = 2 | Gradient Accumulation steps = 4
+\        /    Total batch size = 8 | Total steps = 60
+ "-____-"     Number of trainable parameters = 41,943,040
+ [60/60 01:54, Epoch 0/1]
+Step	Training Loss
+1	2.674800
+2	2.681600
+3	2.603500
+4	2.454600
+5	2.463700
+6	2.137400
+7	2.170800
+8	1.690200
+9	1.543300
+10	1.588800
+11	1.434700
+12	1.436800
+13	1.546900
+14	1.473900
+15	1.328600
+16	1.290700
+17	1.428500
+18	1.335700
+19	1.493200
+20	1.276300
+21	1.352100
+22	1.496900
+23	1.501500
+24	1.292600
+25	1.317700
+26	1.240400
+27	1.334700
+28	1.384600
+29	1.261500
+30	1.286000
+31	1.312000
+32	1.301000
+33	1.331100
+34	1.253900
+35	1.374100
+36	1.206200
+37	1.218700
+38	1.167600
+39	1.391100
+40	1.130700
+41	1.298100
+42	1.252400
+43	1.330500
+44	1.340500
+45	1.365700
+46	1.200900
+47	1.163000
+48	1.199100
+49	1.260800
+50	1.290200
+51	1.319400
+52	1.278800
+53	1.326200
+54	1.210400
+55	1.369100
+56	1.186300
+57	1.328200
+58	1.237400
+59	1.245100
+60	1.305800
+```
+
+The training steps and loss columns depict training performance, with a consistent decline in loss indicating effective learning of the provided material. The entire training sequence completes in under two minutes.
+
+#### 6. Model Testing
+
+Test the Chinese language processing capabilities of the fine-tuned Llama3 model using Chinese questions.
+
+```python
+# alpaca_prompt = Copied from above
+FastLanguageModel.for_inference(model) # Enable native 2x faster inference
+inputs = tokenizer(
+[
+    alpaca_prompt.format(
+        "只能用中文回答问题", # instruction
+        "陨石为什么每次都能精准砸到陨石坑", # input
+        "", # output - leave this blank for generation!
+    )
+], return_tensors = "pt").to("cuda")
+
+from transformers import TextStreamer
+text_streamer = TextStreamer(tokenizer)
+_ = model.generate(**inputs, streamer = text_streamer, max_new_tokens = 256)
+```
+
+Response:
+
+```shell
+<|begin_of_text|>Below is an instruction that describes a task, paired with an input that provides further context. Write a response that appropriately completes the request.
+
+### Instruction:
+只能用中文回答问题
+
+### Input:
+陨石为什么每次都能精准砸到陨石坑
+
+### Response:
+陨石坑是由陨石撞击地球形成的，陨石坑的位置和大小取决于陨石的大小、速度和撞击的角度等多种因素。所以，每次陨石撞击地球，都会形成新的陨石坑，而这些陨石坑的位置和大小可能会有所不同。所以，陨石每次都能精准砸到陨石坑，是因为陨石坑的位置和大小是随着时间变化的，而陨石的撞击位置和大小是随机的。<|end_of_text|>
+```
+
+This confirms the model's proficiency in Chinese question-answering and logical reasoning.
+
+#### 7. Model Saving and Quantization
+
+##### Lora Model
+
+```python
+model.save_pretrained("lora_model") # Local saving
+```
+
+Initially, save the model in Lora format, locate the `lora_model` folder in the workspace, which includes `README.md`, `adapter_config.json`, `adapter_model.safetensors`, where `adapter_model.safetensors` is the Lora file for import into other inference tools.
+
+##### 4bit Quantization
+
+Opt for `4bit` quantization to maximize inference speed and minimize VRAM usage with minimal impact on model accuracy.
+
+```python
+model.save_pretrained_merged("model", tokenizer, save_method = "merged_4bit_forced",)
+```
+
+Result:
+
+```shell
+Unsloth: Merging 4bit and LoRA weights to 4bit...
+This might take 5 minutes...
+Unsloth: Saving tokenizer... Done.
+Unsloth: Saving model... This might take 10 minutes for Llama-7b... Done.
+```
+
+The `model` folder contains the quantized model weights.
+
+#### GGUF/Llama.cpp
+
+Alternatively, save in `gguf` format for CPU inference.
+
+```python
+model.save_pretrained_gguf("model", tokenizer, quantization_method = "q4_k_m")
+```
+
+After a wait, locate the `model-unsloth.Q4_K_M.gguf` file in `/workspace`.
+
+## Conclusion
+
+This tutorial comprehensively detailed the process of fine-tuning Llama 3 using Unsloth and the LooPIN environment. We not only acquired essential skills in data preparation and model training but also learned to efficiently utilize GPU resources for model training. Future tutorials will further explore the practical engineering of LLMs.

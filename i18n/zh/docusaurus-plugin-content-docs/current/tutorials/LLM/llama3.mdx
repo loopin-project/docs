@@ -2,23 +2,23 @@
 sidebar_position: 1
 ---
 
-# 如何简单五步部署Llama 3
+# 如何简单五步部署Llama3
 
 本文更新于 2024年4月27日
 
-## 为何选择 Llama 3？从LLM排行榜看其实力
+## 为何选择 Llama 3？
 
-最近Meta的Llama 3已经成为AI界的热门话题，这款先进的开源大语言模型（LLM）拥有8B和70B两种参数规模，适用于预训练和各种任务的微调。无论你是否用于开发问答系统、文档检索、聊天机器人开发，或是其他LLM相关应用，Llama 3都能满足你的需求。
+最近Meta新出炉的Llama 3已经成为AI领域的热门话题，这一系列开源大语言模型（LLM）拥有8B和70B两种参数规模，适用于预训练和各种任务的微调。无论你是否用于开发问答系统、文档检索、聊天机器人开发，或是其他LLM相关应用，Llama 3都能满足你的需求。
 
 ![meta-llama3-intruct-model-performance](llama3.assets/meta-llama3-intruct-model-performance.png)
 
 ### **LLM排行榜**
 
-Llama 3在各大LLM排行榜上均表现出色，例如Hugging Face的开放LLM排行榜（https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard) 和Vellum AI的LLM排行榜（https://www.vellum.ai/llm-leaderboard) 这些成绩充分证明了它在LLM微调、问答等领域的出色能力。
+Llama 3在各大LLM排行榜上均表现出色，例如Hugging Face的LLM排行榜（https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard) 和Vellum AI的LLM排行榜（https://www.vellum.ai/llm-leaderboard) 这些成绩充分证明了它在LLM微调、问答等领域的出色能力。
 
-## 亲自部署：构建基于GPU的LLM推理引擎
+## 亲自部署：构建基于LooPIN GPU的LLM推理引擎
 
-本指南将带你一步步设置GPU实例，启动Jupyter Notebook，并部署Llama 3进行AI推理任务。准备体验LLM的强大实力了吗？
+本指南将带你一步步设置GPU实例，启动Jupyter Notebook，并部署Llama 3进行AI推理任务。
 
 **你将学到：**
 
@@ -146,12 +146,12 @@ Nice to meet you! I'm LLaMA, an AI assistant developed by Meta AI that can under
 
 - **代码解读：**
 
-- 导入OpenAI库，与API服务器交互。
+- python导入OpenAI库，与API服务器交互。
 - 创建OpenAI客户端，配置服务器URL和API密钥。
-- 使用 `client.chat.completions.create()` 方法向Llama 3模型发送聊天消息 "Hello! Who are you?"
+- 使用 `client.chat.completions.create()` 方法向Llama 3模型发送聊天消息 `Hello! Who are you?`
 - 将模型响应保存在completion变量中，输出消息内容。
 
-- **尝试与探索！** 尝试不同的提示与问题，体验Llama 3的功能。可针对特定任务（如问答、聊天机器人开发等）进行模型微调。
+- **尝试与探索！** 尝试不同的提示词与问题，体验Llama 3的功能。可针对特定任务（如问答、聊天机器人开发等）进行模型微调。
 
 ## LLM的冒险才刚开始：下一步是什么？
 
@@ -163,4 +163,4 @@ Nice to meet you! I'm LLaMA, an AI assistant developed by Meta AI that can under
 
 ## 总结
 
-恭喜你！你已经开始了使用Llama 3探索LLM世界的旅程。我们已经介绍了LLM的部署，并略谈了未来激动人心的可能性。
+恭喜你！我们已经介绍了如何在LooPIN GPU上完成LLM的部署，你已经开始了使用Llama 3探索LLM世界的旅程。在接下来的项目中，你将学到更多关于LLM的知识，探索LLM的无限可能性。
