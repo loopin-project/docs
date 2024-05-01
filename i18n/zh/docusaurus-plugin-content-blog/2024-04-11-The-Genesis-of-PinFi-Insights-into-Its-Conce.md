@@ -1,9 +1,11 @@
 ---
 slug: the-genesis-of-pinfi-insights-into-its-conception-objectives-and-development
-title: 探秘 PinFi：从概念到发展的全面解读
+title: 探秘 PinFi：深入解析
 authors: jessica
 tags: [LooPIN, PinFi]
 ---
+
+# 探秘 PinFi：深入解析
 
 每一个传奇背后都有其故事。传奇从不空穴来风，也不会无痕地消逝，每一个真正的传奇都是力量的象征，其到来总是恰到好处——既不早也不迟，正是这种精准的时机定义了她的传奇地位。在加密货币世界，这样的例子层出不穷，从比特币到以太坊，从去中心化金融 (DeFi) 到去中心化个人网络 (DePIN)，而今有了 PinFi，我们见证了一代代传奇的诞生和崛起。
 

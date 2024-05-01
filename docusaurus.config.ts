@@ -51,6 +51,9 @@ const config: Config = {
   themeConfig: {
     // Replace with your project's social card
     image: 'img/LooPIN-social-card.png',
+    metadata: [
+      {name: 'keywords', content: 'docs, loopin, network, AI, GPU'},
+    ],
     colorMode: {
       defaultMode: 'dark',
       disableSwitch: true,
