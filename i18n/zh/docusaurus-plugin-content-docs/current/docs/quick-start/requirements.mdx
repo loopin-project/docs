@@ -1,0 +1,91 @@
+---
+sidebar_position: 1
+---
+
+# 硬件要求
+
+## 加入LooPIN网络的基本条件
+
+想要加入LooPIN网络，您的系统需要符合以下最低标准：
+
+1. **GPU**：至少配置一块Nvidia GPU。
+2. **操作系统**：需要运行Ubuntu或Debian的Linux系统。
+3. **网络**：必须有一个公网IP地址。
+4. **端口**：需确保所有端口对LooPIN网络开放。
+5. **RAM**：每块GPU至少需要4GB内存。
+6. **磁盘空间**：至少100GB。
+7. **Nvidia驱动程序**：版本需达到525.00或以上。
+8. **CUDA版本**：需12.0或以上。
+
+## 网络配置要求
+
+LooPIN网络基于Kubernetes (K8S)运行，以下是必须满足的网络端口要求：
+
+| 协议 | 方向 | 端口范围    | 用途         | 应用对象         |
+| ---- | ---- | ----------- | ------------ | ---------------- |
+| TCP  | 入站 | 10250       | Kubelet API  | 自身及控制平面   |
+| TCP  | 入站 | 10256       | kube-proxy   | 自身及负载均衡器 |
+| TCP  | 入站 | 30000-32767 | NodePort服务 | 全部设备         |
+
+## 支持的GPU与抵押奖励
+
+目前，以下GPU支持抵押奖励。新设备注册并联网后，我们会空投足够至少24小时抵押的代币：
+
+| GPU        | $LOOPIN代币 |
+| ---------- | ----------- |
+| RTX 3080   | 5           |
+| RTX 3090   | 7           |
+| RTX 4090   | 15          |
+| A100       | 50          |
+| A5000      | 7           |
+| RTX 4070   | 7           |
+| Tesla V100 | 7           |
+| Tesla T4   | 2           |
+| RTX 3070   | 5           |
+| RTX 4080   | 10          |
+
+我们会定期更新支持的GPU列表。
+
+想了解实时24小时抵押奖励信息？请访问 https://www.loopin.network/overview 获取最新动态！
+
+## 安装流程
+
+安装时，请在终端中执行以下命令（详细步骤见[快速上手](/docs/quick-start/onboard)）：
+
+```bash
+curl -fsSL https://files.loopin.network/install.sh | sudo bash -s -- --code <your-unique-code>
+```
+
+### 安装后预期输出
+
+安装成功后，输出信息如下：
+
+```plaintext
+>>> NVIDIA GPU installed. NVIDIA GPU已安装。
+>>> Install LooPIN Client... 开始安装LooPIN客户端...
+cpu_cores: 20
+gpu: [NVIDIA GeForce RTX 3080]
+ipv4: <your-ip>
+ram: 64032MB
+cpu: 第12代Intel(R) Core(TM) i7-12700K
+vram: 12288MB
+driver_version: 550.54
+location: xxx
+cuda_version: 12.4
+disk: 1.8T
+platform: Linux
+-- Required RAM: 3800MB, Available: 64032MB
+-- 需要的RAM：3800MB，实际可用：64032MB
+-- Required Disk: 80GB, Available: 1.8T
+-- 需要的磁盘空间：80GB，实际可用：1.8T
+-- Required CUDA Version: >=12, Available: 12.4
+-- 需要的CUDA版本：>=12，实际：12.4
+-- Required Driver Version: >=525, Available: 550.54
+-- 需要的驱动版本：>=525，实际：550.54
+✅System meets memory and disk requirements.
+✅系统满足内存和磁盘要求。
+✅CUDA and Driver versions are sufficient.
+✅CUDA和驱动版本符合要求。
+```
+
+安装将仅在满足所有条件时继续。

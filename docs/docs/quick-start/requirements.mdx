@@ -1,0 +1,83 @@
+---
+sidebar_position: 1
+---
+
+# Minimum Requirements
+
+To join the LooPIN network, ensure your system meets the following requirements:
+
+1. **GPU**: At least one Nvidia GPU.
+2. **Operating System**: A Linux machine running Ubuntu or Debian.
+3. **Network**: A public IP address.
+4. **Ports**: All ports must be available for the LooPIN network.
+5. **RAM**: At least 4GB * number of GPUs.
+6. **Disk Space**: At least 100GB.
+7. **Nvidia Driver**: Version 525.00 or higher.
+8. **CUDA Version**: Version 12.0 or higher.
+
+## Network Requirements
+
+LooPIN network operates on top of Kubernetes (K8S). The table below outlines the [network port requirements](https://kubernetes.io/docs/reference/networking/ports-and-protocols/):
+
+| Protocol | Direction | Port Range  | Purpose           | Used By              |
+| -------- | --------- | ----------- | ----------------- | -------------------- |
+| TCP      | Inbound   | 10250       | Kubelet API       | Self, Control plane  |
+| TCP      | Inbound   | 10256       | kube-proxy        | Self, Load balancers |
+| TCP      | Inbound   | 30000-32767 | NodePort Services | All                  |
+
+## Supported GPUs for Staking Rewards
+
+Currently, we only support the following GPUs for staking rewards. Upon new machines registered and online, we will airdrop the following tokens for the initial setup (enough for the first 24 hours of staking):
+
+| GPU        | $LOOPIN Tokens |
+| ---------- | -------------- |
+| RTX 3080   | 5              |
+| RTX 3090   | 7              |
+| RTX 4090   | 15             |
+| A100       | 50             |
+| A5000      | 7              |
+| RTX 4070   | 7              |
+| Tesla V100 | 7              |
+| Tesla T4   | 2              |
+| RTX 3070   | 5              |
+| RTX 4080   | 10             |
+
+This list will be updated over time as we add support for more GPUs.
+
+Want to check out the real-time 24-hour staking rewards? Head to https://www.loopin.network/overview for the latest updates!
+
+## Installation Process
+
+To install, run the following command in your terminal (Interactive guidance at [On board](/docs/quick-start/onboard)):
+
+```bash
+curl -fsSL https://files.loopin.network/install.sh | sudo bash -s -- --code <your-unique-code>
+```
+
+### Expected Output
+
+Upon successful installation, you should see an output similar to this:
+
+```plaintext
+>>> NVIDIA GPU installed.
+>>> Install LooPIN Client...
+cpu_cores: 20
+gpu: [NVIDIA GeForce RTX 3080]
+ipv4: <your-ip>
+ram: 64032MB
+cpu: 12th Gen Intel(R) Core(TM) i7-12700K
+vram: 12288MB
+driver_version: 550.54
+location: xxx
+cuda_version: 12.4
+disk: 1.8T
+platform: Linux
+-- Required RAM: 3800MB, Available: 64032MB
+-- Required Disk: 80GB, Available: 1.8T
+-- Required CUDA Version: >=12, Available: 12.4
+-- Required Driver Version: >=525, Available: 550.54
+✅System meets memory and disk requirements.
+✅CUDA and Driver versions are sufficient.
+```
+
+The installation will proceed only if all the requirements are met.
