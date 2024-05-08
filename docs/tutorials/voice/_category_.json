@@ -1,0 +1,8 @@
+{
+  "label": "Voice cloning",
+  "position": 3,
+  "link": {
+    "type": "generated-index",
+    "description": "Fast voice cloning and synthesis"
+  }
+}
