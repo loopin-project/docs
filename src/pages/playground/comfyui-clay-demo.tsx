@@ -3,6 +3,7 @@ import Layout from '@theme/Layout';
 import { useDropzone } from 'react-dropzone';
 import axios from 'axios';
 import { Button, Flex, Image } from 'antd';
+import heic2any from 'heic2any';
 
 interface CheckResponse {
     exists: boolean;
@@ -20,11 +21,21 @@ export default function ImageStyleTransfer() {
 
     const { getRootProps, getInputProps } = useDropzone({
         accept: {
-            'image/png': ['.png'],
+            'image/png': ['.png', '.jpg', '.jpeg', '.webp', '.heic'],
         },
-        onDrop: (acceptedFiles: File[]) => {
+        onDrop: async (acceptedFiles: File[]) => {
             const file = acceptedFiles[0];
-            setImageFile(file);
+            if (file.type === 'image/heic') {
+                const convertedBlob = await heic2any({
+                    blob: file,
+                    toType: 'image/jpeg',
+                    quality: 0.8 // adjust the quality of the output image
+                });
+                const convertedFile = new File([convertedBlob as BlobPart], 'converted.jpeg', { type: 'image/jpeg' });
+                setImageFile(convertedFile);
+            } else {
+                setImageFile(file);
+            }
         }
     });
 
@@ -84,21 +95,25 @@ export default function ImageStyleTransfer() {
 
     return (
         <Layout title="AI Image Style Transfer" description="Upload and stylize your images">
-            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '90vh' }}>
-                <div style={{ textAlign: 'center' }}>
-                    <div {...getRootProps()} style={{ border: '2px dashed gray', padding: '20px', cursor: 'pointer' }}>
-                        <input {...getInputProps()} />
-                        <div>Drag & drop your .png image here, or click to select</div>
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '90vh', padding: "10px"}}>
+                <Flex vertical>
+                    <div style={{ textAlign: 'center' }}>
+                        <div {...getRootProps()} style={{ border: '2px dashed gray', padding: '20px', cursor: 'pointer' }}>
+                            <input {...getInputProps()} />
+                            <div>Drag & drop your image here, or click to select</div>
+                        </div>
+                        <Flex vertical>
+                            {imageFile && <Image src={URL.createObjectURL(imageFile)} alt="Uploaded" style={{ width: 'auto', maxHeight: "300px", height: 'auto', padding: '20px' }} />}
+                            <div style={{ textAlign: 'center' }}>
+                                {isLoading && <p style={{  margin: '20px' }}>Loading...</p>}
+                                {!isLoading && processedImage && <Image src={processedImage} alt="Processed" style={{ width: 'auto', maxHeight: "300px", height: 'auto', padding: '20px' }} />}
+                            </div>
+                        </Flex>
                     </div>
-                    <Flex vertical >
-                        {imageFile && <img src={URL.createObjectURL(imageFile)} alt="Uploaded" style={{ width: '400px', height: 'auto', margin: '20px' }} />}
-                        {imageFile && <Button type="primary" disabled={isLoading} onClick={() => sendImage(imageFile)}>Convert</Button>}
-                    </Flex>
-                </div>
-                <div style={{ textAlign: 'center' }}>
-                    {isLoading && <p style={{ width: '400px', height: 'auto', margin: '20px' }}>Loading...</p>}
-                    {!isLoading && processedImage && <Image src={processedImage} alt="Processed" style={{ width: '500px', height: 'auto', margin: '20px' }} />}
-                </div>
+
+                    {imageFile && <Button type="primary" disabled={isLoading} onClick={() => sendImage(imageFile)}>Convert</Button>}
+                </Flex>
+
             </div>
         </Layout>
     );
