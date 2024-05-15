@@ -99,20 +99,29 @@ export default function ImageStyleTransfer() {
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '90vh', padding: "10px"}}>
                 <Flex vertical>
                     <div style={{ textAlign: 'center' }}>
-                        <div {...getRootProps()} style={{ border: '2px dashed gray', padding: '20px', cursor: 'pointer' }}>
+                        {!processedImage && <div {...getRootProps()} style={{ border: '2px dashed gray', padding: '20px', cursor: 'pointer' }}>
                             <input {...getInputProps()} />
                             <div>Drag & drop your image here, or click to select</div>
-                        </div>
+                        </div>}
                         <Flex vertical>
-                            {imageFile && <Image src={URL.createObjectURL(imageFile)} alt="Uploaded" style={{ width: 'auto', maxHeight: "300px", height: 'auto', padding: '20px' }} />}
+                            {imageFile && <img src={URL.createObjectURL(imageFile)} alt="Uploaded" style={{ padding: '20px' }} />}
+                            {/*{imageFile && <Image src={URL.createObjectURL(imageFile)} alt="Uploaded" style={{ padding: '20px' }} />}*/}
                             <div style={{ textAlign: 'center' }}>
                                 {isLoading && <p style={{  margin: '20px' }}>Loading...</p>}
-                                {!isLoading && processedImage && <Image src={processedImage} alt="Processed" style={{ width: 'auto', maxHeight: "300px", height: 'auto', padding: '20px' }} />}
+                                {!isLoading && processedImage && <img src={processedImage} alt="Processed" style={{padding: '20px' }} />}
                             </div>
                         </Flex>
                     </div>
 
-                    {imageFile && <Button type="primary" disabled={isLoading} onClick={() => sendImage(imageFile)}>Convert</Button>}
+                    <Flex vertical gap={10} style={{marginBottom: "10px"}}>
+                        {imageFile && <Button type="primary" disabled={isLoading} onClick={() => sendImage(imageFile)}>
+                            {processedImage ? 'Not good? Reprocess': "Convert"}
+                        </Button>}
+                        {processedImage && <Button type="primary" danger disabled={isLoading} onClick={() => {
+                            setProcessedImage(null);
+                            setImageFile(null)
+                        }}>New</Button>}
+                    </Flex>
                 </Flex>
 
             </div>
