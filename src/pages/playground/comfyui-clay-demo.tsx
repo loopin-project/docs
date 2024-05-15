@@ -3,7 +3,7 @@ import Layout from '@theme/Layout';
 import { useDropzone } from 'react-dropzone';
 import axios from 'axios';
 import { Button, Flex, Image } from 'antd';
-import heic2any from 'heic2any';
+import BrowserOnly from '@docusaurus/BrowserOnly';
 
 interface CheckResponse {
     exists: boolean;
@@ -26,6 +26,7 @@ export default function ImageStyleTransfer() {
         onDrop: async (acceptedFiles: File[]) => {
             const file = acceptedFiles[0];
             if (file.type === 'image/heic') {
+                const heic2any = require('heic2any');
                 const convertedBlob = await heic2any({
                     blob: file,
                     toType: 'image/jpeg',
