@@ -12,19 +12,12 @@ sidebar_position: 2
 
 使用FluidStack非常简单，只需遵循以下几个步骤即可开始。
 
-export const ArcadeFluidStack = () => (
-    <div style={{ position: "relative", paddingBottom: "calc(55.1% + 41px)", height: 0, width: "100%", borderRadius: "10px" }}>
-        <iframe src={"https://demo.arcade.software/I3WqcSBlzZZ29ldOwrEa?embed&show_copy_link=true"}
-                title="Onboard"
-                loading="lazy"
-                allowFullScreen
-                allow="clipboard-write"
-                style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", colorScheme: "dark", borderRadius: "10px" }}>
-        </iframe>
-    </div>
-)
+import ReactPlayer from 'react-player'
+import videoUrl from './FluidStack.mp4'
 
-<ArcadeFluidStack/>
+<div style={{ position: "relative", top: 0, left: 0, width: "100%", height: "100%", colorScheme: "dark", borderRadius: "10px" }}>
+    <ReactPlayer controls url={videoUrl} />
+</div>
 
 ### 创建新实例
 
@@ -53,20 +46,6 @@ ssh ubuntu@<your-ip>
 - 这条命令将建立一个安全的连接到您的实例，使您可以开始远程管理。
 
 ## 将您的FluidStack实例连接到LooPIN网络
-
-export const ArcadeOnboard = () => (
-    <div style={{ position: "relative", paddingBottom: "calc(55.1% + 41px)", height: 0, width: "100%", borderRadius: "10px" }}>
-        <iframe src={"https://demo.arcade.software/Dnlp5al4d04puzatvEDY?embed&show_copy_link=true"}
-                title="Onboard"
-                loading="lazy"
-                allowFullScreen
-                allow="clipboard-write"
-                style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", colorScheme: "dark", borderRadius: "10px" }}>
-        </iframe>
-    </div>
-)
-
-<ArcadeOnboard/>
 
 ## 准备工作
 

@@ -15,19 +15,12 @@ keywords: [AWS, Amazon, EC2, GPU, Nvidia, Ubuntu, LooPIN, Liquidity, Swap]
 
 The process to register and start using AWS includes a series of straightforward steps.
 
-export const ArcadeAWS = () => (
-    <div style={{ position: "relative", paddingBottom: "calc(55.1% + 41px)", height: 0, width: "100%", borderRadius: "10px" }}>
-        <iframe src={"https://demo.arcade.software/t1V9HNRTnPdEiwGo1Slg?embed&show_copy_link=true"}
-                title="Onboard"
-                loading="lazy"
-                allowFullScreen
-                allow="clipboard-write"
-                style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", colorScheme: "dark", borderRadius: "10px" }}>
-        </iframe>
-    </div>
-)
+import ReactPlayer from 'react-player'
+import videoUrl from './AWS.mp4'
 
-<ArcadeAWS/>
+<div style={{ position: "relative", top: 0, left: 0, width: "100%", height: "100%", colorScheme: "dark", borderRadius: "10px" }}>
+    <ReactPlayer controls url={videoUrl} />
+</div>
 
 ### Create a New Instance
 
@@ -63,20 +56,6 @@ ssh -o "IdentitiesOnly yes" -i loopin.pem ubuntu@<your-ip>
 ```
 
 ## Connect your AWS Instance to LooPIN Network
-
-export const ArcadeOnboard = () => (
-    <div style={{ position: "relative", paddingBottom: "calc(55.1% + 41px)", height: 0, width: "100%", borderRadius: "10px" }}>
-        <iframe src={"https://demo.arcade.software/Dnlp5al4d04puzatvEDY?embed&show_copy_link=true"}
-                title="Onboard"
-                loading="lazy"
-                allowFullScreen
-                allow="clipboard-write"
-                style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", colorScheme: "dark", borderRadius: "10px" }}>
-        </iframe>
-    </div>
-)
-
-<ArcadeOnboard/>
 
 ### Prerequisites
 

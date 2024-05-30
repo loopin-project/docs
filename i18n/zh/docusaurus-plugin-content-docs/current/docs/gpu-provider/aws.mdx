@@ -12,19 +12,12 @@ sidebar_position: 1
 
 注册并开始使用 AWS 的过程包括以下几个简单步骤。
 
-export const ArcadeAWS = () => (
-    <div style={{ position: "relative", paddingBottom: "calc(55.1% + 41px)", height: 0, width: "100%", borderRadius: "10px" }}>
-        <iframe src={"https://demo.arcade.software/t1V9HNRTnPdEiwGo1Slg?embed&show_copy_link=true"}
-                title="Onboard"
-                loading="lazy"
-                allowFullScreen
-                allow="clipboard-write"
-                style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", colorScheme: "dark", borderRadius: "10px" }}>
-        </iframe>
-    </div>
-)
+import ReactPlayer from 'react-player'
+import videoUrl from './AWS.mp4'
 
-<ArcadeAWS/>
+<div style={{ position: "relative", top: 0, left: 0, width: "100%", height: "100%", colorScheme: "dark", borderRadius: "10px" }}>
+    <ReactPlayer controls url={videoUrl} />
+</div>
 
 ### 创建新实例的步骤
 
@@ -60,20 +53,6 @@ ssh -o "IdentitiesOnly yes" -i loopin.pem ubuntu@<your-ip>
      ```
 
 ## 将您的 AWS 实例连接到 LooPIN 网络
-
-export const ArcadeOnboard = () => (
-    <div style={{ position: "relative", paddingBottom: "calc(55.1% + 41px)", height: 0, width: "100%", borderRadius: "10px" }}>
-        <iframe src={"https://demo.arcade.software/Dnlp5al4d04puzatvEDY?embed&show_copy_link=true"}
-                title="Onboard"
-                loading="lazy"
-                allowFullScreen
-                allow="clipboard-write"
-                style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", colorScheme: "dark", borderRadius: "10px" }}>
-        </iframe>
-    </div>
-)
-
-<ArcadeOnboard/>
 
 ## 准备工作
 

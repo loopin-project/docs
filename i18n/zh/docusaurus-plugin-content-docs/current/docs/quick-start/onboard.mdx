@@ -6,19 +6,12 @@ sidebar_position: 2
 
 欢迎来到 LooPIN！准备好探索去中心化计算了吗？让我们在5分钟内帮您快速开始。
 
-export const Arcade = () => (
-    <div style={{ position: "relative", paddingBottom: "calc(55.1% + 41px)", height: 0, width: "100%", borderRadius: "10px" }}>
-        <iframe src={`https://demo.arcade.software/Dnlp5al4d04puzatvEDY?embed&show_copy_link=true`}
-                title="Onboard"
-                loading="lazy"
-                allowFullScreen
-                allow="clipboard-write"
-                style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", colorScheme: "dark", borderRadius: "10px" }}>
-        </iframe>
-    </div>
-)
+import ReactPlayer from 'react-player'
+import videoUrl from './Onboard.mp4'
 
-<Arcade/>
+<div style={{ position: "relative", top: 0, left: 0, width: "100%", height: "100%", colorScheme: "dark", borderRadius: "10px" }}>
+    <ReactPlayer controls url={videoUrl} />
+</div>
 
 ## 准备工作
 
