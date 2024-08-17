@@ -10,7 +10,7 @@ The $LOOPIN token is the core cryptocurrency and protocol token of the LooPIN pr
 
 The initial launch of the $LOOPIN token occurred on the Solana devnet, marking a pivotal step in our approach to a decentralized finance (DeFi) framework focused on GPU power sharing. This preliminary issuance serves as a foundation for testing and development ahead of our mainnet deployment.
 
-- **Token Link**: [$LOOPIN on Solana Devnet](https://solscan.io/token/5NKinmhNiUyQbxXXBKJz6t3w4Emg2D43e4PWoajMNEv7?cluster=devnet)
+- **Token Link**: [$LOOPIN on Solana Devnet](https://explorer.solana.com/address/5NKinmhNiUyQbxXXBKJz6t3w4Emg2D43e4PWoajMNEv7?cluster=devnet)
 
 ## Token Distribution
 

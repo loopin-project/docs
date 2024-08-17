@@ -10,7 +10,7 @@ $LOOPIN token 是 LooPIN 协议的核心加密货币和协议 token，主要用�
 
 $LOOPIN token 在 Solana devnet 上的首次发行，是我们向以 GPU 共享为核心的去中心化金融（DeFi）架构迈进的关键一步。这一初步发行是主网部署前的测试和开发的基础。
 
-- **Token 链接：** [$LOOPIN on Solana Devnet](https://solscan.io/token/5NKinmhNiUyQbxXXBKJz6t3w4Emg2D43e4PWoajMNEv7?cluster=devnet)
+- **Token 链接：** [$LOOPIN on Solana Devnet](https://explorer.solana.com/address/5NKinmhNiUyQbxXXBKJz6t3w4Emg2D43e4PWoajMNEv7?cluster=devnet)
 
 ## Token 分发规则
 
