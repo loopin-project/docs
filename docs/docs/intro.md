@@ -24,7 +24,7 @@ PinFi is closely integrated with LooPIN, providing a suite of tools and resource
 1. **Explore the LooPIN Dashboard** for insights and control over your computing resources: [LooPIN Dashboard](https://loopin.network/)
 2. **Follow LooPIN on Twitter** for the latest updates and community engagement: [LooPIN on Twitter](https://x.com/loopin_network/)
 3. **Delve into Research** to understand the technology and vision behind LooPIN: [LooPIN Research](https://loopin.network/research/)
-4. **Experiment with the LooPIN Solana Devnet Token** for hands-on experience with the protocol: [LooPIN Solana Devnet Token](https://solscan.io/token/5NKinmhNiUyQbxXXBKJz6t3w4Emg2D43e4PWoajMNEv7?cluster=devnet)
+4. **Experiment with the LooPIN Solana Devnet Token** for hands-on experience with the protocol: [LooPIN Solana Devnet Token](https://explorer.solana.com/address/5NKinmhNiUyQbxXXBKJz6t3w4Emg2D43e4PWoajMNEv7?cluster=devnet)
 5. **Meet the Team** behind LooPIN and learn about their vision and expertise: [Meet the LooPIN Team](https://loopro.ai/)
 
 ### Installation Guide

@@ -24,7 +24,7 @@ PinFi与LooPIN的紧密整合，为用户提供了深入探索去中心化计算
 1. **探索LooPIN仪表盘：** 掌握并管理你的计算资源: [LooPIN Dashboard](https://loopin.network/)
 2. **关注LooPIN的Twitter：** 跟进最新动态和社区活动: [LooPIN on Twitter](https://x.com/loopin_network/)
 3. **深入研究：** 深入了解LooPIN的技术和愿景: [LooPIN Research](https://loopin.network/research/)
-4. **尝试LooPIN Solana Devnet Token：** 亲身体验该协议: [LooPIN Solana Devnet Token](https://solscan.io/token/5NKinmhNiUyQbxXXBKJz6t3w4Emg2D43e4PWoajMNEv7?cluster=devnet)
+4. **尝试LooPIN Solana Devnet Token：** 亲身体验该协议: [LooPIN Solana Devnet Token](https://explorer.solana.com/address/5NKinmhNiUyQbxXXBKJz6t3w4Emg2D43e4PWoajMNEv7?cluster=devnet)
 5. **认识LooPIN团队：** 了解他们的愿景和专业技能: [Meet the LooPIN Team](https://loopro.ai/)
 
 ### 安装指南
