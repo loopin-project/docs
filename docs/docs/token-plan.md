@@ -14,11 +14,19 @@ The initial launch of the $LOOPIN token occurred on the Solana devnet, marking a
 
 ## Token Distribution
 
-The distribution strategy for $LOOPIN tokens is designed to ensure fairness and promote widespread participation in the ecosystem:
+The distribution strategy for $LOOPIN tokens is designed to ensure maximum fairness and decentralization through a mining-based approach:
 
-- **10% to the Team**: To support and incentivize the core developers of the PinFi protocol.
-- **20% for Ecosystem Development**: Targeting key community members, including students within the Solana ecosystem, to promote early adoption and active engagement.
-- **70% to GPU Providers**: Allocating the majority of tokens to GPU providers to reward their crucial role in infrastructure support and network stability.
+- **100% to Mining**: The entire token supply is distributed through mining, promoting a fair launch and widespread participation in the ecosystem.
+
+- **Block Fee Allocation**:
+  - **10% to the Team**: A small portion of block fees supports and incentivizes the core developers of the PinFi protocol.
+  - **20% to Ecosystem Development**: This allocation from block fees targets key community initiatives and ecosystem growth. Specifically:
+    - The funds are stored in the foundation wallet.
+    - This wallet is designated for exchange listings, donations, and ecosystem support.
+    - Control of these funds is governed by DAO voting for each expenditure, ensuring community oversight.
+  - **70% to GPU Miners**: The majority of block fees are returned to the miners, rewarding their crucial role in infrastructure support and network stability.
+
+This approach ensures a fair launch where all tokens are mined, while still providing sustainable funding for development and ecosystem growth through a portion of the block fees.
 
 ## Minting and Distribution Schedule
 
