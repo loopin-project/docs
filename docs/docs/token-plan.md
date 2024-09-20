@@ -33,7 +33,8 @@ This approach ensures a fair launch where all tokens are mined, while still prov
 $LOOPIN tokens are minted daily to sustain the network and its participants:
 
 - **Minting Schedule**: Every day at UTC 0:00, 100,000 new tokens are minted to the treasury account.
-- **Halving Event**: The issuance rate will halve every two years, ensuring a controlled supply expansion over time.
+- **Halving Event**: The issuance rate will halve every year, ensuring a controlled supply expansion over time.
+- **Max Supply**: The maximum supply of $LOOPIN tokens is 73,000,000.
 
 ## Token Utility
 
