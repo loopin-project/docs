@@ -108,6 +108,8 @@ During our testnet phase, the protocol allowed speculative sellers to offer thei
 
 Given that LooPIN aims to be a highly efficient protocol, reducing the percentage of unused time is essential. As a result, we've adjusted the selling resolution to 1 day, with a minimum selling period of 1 days (one day) and a maximum of 7 days (one week) in our main net phase. This also means that computing power sold to extract liquidity from the pool must maintain the machine's usability for a longer period.
 
+Additionally, to further enhance network stability, we’re increasing the collateral amount from 1x to 100x the value of the sold GPU hours. This adjustment helps prevent malicious sellers from engaging in token price arbitrage.
+
 ### Buyers
 
 During our testnet phase, the protocol allowed buyers to purchase computing resources in hourly increments, with a minimum of 1 hour and a maximum of 24 hours. However, users in universities and AI research labs emphasized the importance of being able to extend the duration of their original purchase and to terminate instances early. In response, we have implemented these features in our mainnet phase, making the protocol more accessible and user-friendly.

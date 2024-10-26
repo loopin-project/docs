@@ -38,7 +38,7 @@ $LOOPIN tokens are minted daily to sustain the network and its participants:
 
 ## Token Utility
 
-The $LOOPIN token facilitates various activities within the $LOOPIN network:
+The \$LOOPIN token facilitates various activities within the \$LOOPIN network:
 
 - **Staking**: GPU providers can stake tokens to participate in network validation and earn rewards.
 - **Governance**: Token holders can vote on proposals that influence the development and operational aspects of the network.
