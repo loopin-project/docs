@@ -43,6 +43,45 @@ LooPIN Client Connected! Waiting for the on-chain verification...
 
 5. **接入集群**: 一旦您的设备成功连接到我们的集群并显示在线状态，您便可以开始利用您的空闲 GPU 时间参与到共享池中或进行流动性交换。
 
+## 如何从你的设备中卸载 LooPIN
+
+如果你决定不再使用 LooPIN，或者因为其他原因需要卸载 LooPIN，本指南将帮助你完成卸载过程。
+
+### 卸载步骤
+
+我们将使用一个简单的 shell 脚本来卸载 LooPIN。具体操作如下：
+
+1. 打开终端或命令提示符。
+
+2. 如果你没有 loopin 可执行文件，可以从 LooPIN 官方网络下载（这一步是可选的）：
+
+```
+curl -fsSL https://files.loopin.network/loopin -o loopin && chmod +x loopin
+```
+
+3. 使用 `--uninstall` 参数运行脚本：
+
+```
+sudo ./loopin --uninstall
+```
+
+### 卸载过程中会发生什么
+
+执行这个命令后，系统将：
+1. 删除 LooPIN 控制器的访问权限
+2. 从你的系统中移除 loopin-worker
+
+运行命令后，你会看到类似下面的输出信息：
+
+```
+Uninstalling LooPIN components...
+Removed LooPIN controller access
+Removed /etc/systemd/system/multi-user.target.wants/loopin-worker.service.
+Stopped and removed LooPIN worker service.
+Removed LooPIN worker executable.
+👋 LooPIN has been successfully uninstalled from your system.
+```
+
 ## 安装需要注意
 
 为确保安装顺利进行，请准备：
