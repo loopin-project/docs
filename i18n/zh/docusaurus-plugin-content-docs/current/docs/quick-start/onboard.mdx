@@ -32,7 +32,7 @@ import videoUrl from './Onboard.mp4'
  - 在 Ubuntu 系统中打开终端。
  - 执行以下命令，将您的设备注册为 LooPIN 工作节点（具体命令参见指导页面）：
 ```bash
-curl -fsSL https://files.loopin.network/install.sh | sudo bash -s -- --code <your-unique-code>
+curl -fsSL https://files.loopin.network/install.sh | sudo bash -s -- --code <your-unique-code> --ip <your-ip>
 ```
  - 此命令将下载并执行安装脚本，用您的唯一代码注册设备。
 4. **安装及验证**: 脚本会检测设备是否符合要求，并安装必要的驱动程序，包括 Nvidia GPU 驱动。完成后会进行设备验证并完成注册。安装成功后，您将看到以下提示：

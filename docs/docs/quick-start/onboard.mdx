@@ -32,9 +32,9 @@ Follow our **onboard interactive video** for a quick and easy setup.
  - Open a terminal on your Ubuntu system.
  - Run the following command to register your machine as a LooPIN worker (Find it in your guidance page):
 ```bash
-curl -fsSL https://files.loopin.network/install.sh | sudo bash -s -- --code <your-unique-code>
+curl -fsSL https://files.loopin.network/install.sh | sudo bash -s -- --code <your-unique-code> --ip <your-ip>
 ```
- - This command downloads and executes the LooPIN installation script, registering your machine with the provided unique code.
+ - This command downloads and executes the LooPIN installation script, registering your machine with the provided unique code. (Optional) You can also provide your machine’s IP address—usually, the script auto-detects it.
 4. **Installation and Verification**: The script will check if your machine meets the requirements and will install necessary drivers, including the Nvidia GPU driver. It will then verify your setup and register your worker. Upon successful installation, you should see the message:
 ```bash
 LooPIN Client Connected! Waiting for the on-chain verification...
