@@ -8,9 +8,15 @@ The $LOOPIN token is the core cryptocurrency and protocol token of the LooPIN pr
 
 ## Launch Details
 
-The initial launch of the $LOOPIN token occurred on the Solana devnet, marking a pivotal step in our approach to a decentralized finance (DeFi) framework focused on GPU power sharing. This preliminary issuance serves as a foundation for testing and development ahead of our mainnet deployment.
+The initial launch of the $LOOPIN token occurred on the Solana devnet, migrating to Solana mainnet and Ethereum ([Cross-chain bridge information](/docs/mainnet/bridge)), marking a pivotal step in our approach to a decentralized finance (DeFi) framework focused on GPU power sharing. 
 
-- **Token Link**: [$LOOPIN on Solana Devnet](https://explorer.solana.com/address/5NKinmhNiUyQbxXXBKJz6t3w4Emg2D43e4PWoajMNEv7?cluster=devnet)
+## Token Addresses
+
+- **Solana Token Address**: [`CHX3FSxGYSJ2LHeQTcGp2oMAoBNngtJ73jsuamMUnZQx`](https://solscan.io/token/CHX3FSxGYSJ2LHeQTcGp2oMAoBNngtJ73jsuamMUnZQx)
+- **Ethereum Token Address**: [`0x975dA7b2325F815F1dE23C8B68f721fb483B8071`](https://etherscan.io/token/0x975dA7b2325F815F1dE23C8B68f721fb483B8071)
+
+- **Solana NTT Bridge**: [`nTtyAzdYmpLwAWGWCK3PFqfrsKaPpZgbghy7qiqDb7H`](https://solscan.io/account/nTtyAzdYmpLwAWGWCK3PFqfrsKaPpZgbghy7qiqDb7H)
+- **Ethereum NTT Bridge**: [`0x6bE6CC3825f29EbBD014487B30512984b2C0cDf3`](https://etherscan.io/address/0x6bE6CC3825f29EbBD014487B30512984b2C0cDf3)
 
 ## Token Distribution
 
@@ -43,12 +49,26 @@ The \$LOOPIN token facilitates various activities within the \$LOOPIN network:
 - **Staking**: GPU providers can stake tokens to participate in network validation and earn rewards.
 - **Governance**: Token holders can vote on proposals that influence the development and operational aspects of the network.
 
-## Wallet Addresses for Token Distribution
+## Wallet Addresses for Token Distribution (Solana)
 
-- **Treasury Address (Devnet)**: `9TP5HkgZSN3KwhsvhssRpviNFVtAAupPXcz6dJSbCnxq`
-- **Team Address (Devnet)**: `6Vdj3NL7K3Mpum1oo5KZ6VLjaxi6QmHdAyFBkaf84ZQG`
-- **Foundation Address (Devnet)**: `Cibq6gDmMxH7Xj6NHE7F3t8UgpwyPb7U1M258SrC7tbF`
+- **Treasury Address**: [`9TP5HkgZSN3KwhsvhssRpviNFVtAAupPXcz6dJSbCnxq`](https://solscan.io/account/9TP5HkgZSN3KwhsvhssRpviNFVtAAupPXcz6dJSbCnxq)
+- **Team Address**: [`6Vdj3NL7K3Mpum1oo5KZ6VLjaxi6QmHdAyFBkaf84ZQG`](https://solscan.io/account/6Vdj3NL7K3Mpum1oo5KZ6VLjaxi6QmHdAyFBkaf84ZQG)
+- **Foundation Address**: [`Cibq6gDmMxH7Xj6NHE7F3t8UgpwyPb7U1M258SrC7tbF`](https://solscan.io/account/Cibq6gDmMxH7Xj6NHE7F3t8UgpwyPb7U1M258SrC7tbF)
 
-## Note on Token Transition
+## GPU related Addresses
 
-The tokens currently in the devnet are part of a beta test phase. These tokens will serve as qualification for airdrops as we transition to the mainnet, providing early supporters and testers with initial stakes in the mainnet environment.
+- **A100**
+  - **Liquidity Pool**: [`CG9yXB47xQ9a4LjXbTVMurwFNw27aB9aazxQpwRpShc1`](https://solscan.io/account/CG9yXB47xQ9a4LjXbTVMurwFNw27aB9aazxQpwRpShc1)
+  - **Collateral**: [`2hzVfnknEUPSmSrJr77ju8jsgXcJ5rb3RSNBhQLdhSaz`](https://solscan.io/account/2hzVfnknEUPSmSrJr77ju8jsgXcJ5rb3RSNBhQLdhSaz)
+- **A6000**
+  - **Liquidity Pool**: [`4WftfwM34qLwDbB9szL9Mpzjeso8hgRnHsgsLbtYCfWU`](https://solscan.io/account/4WftfwM34qLwDbB9szL9Mpzjeso8hgRnHsgsLbtYCfWU)
+  - **Collateral**: [`83qAPrpq9vRUaK7ckuPSzfGra7FwgwDUA8Va1vqnQ9n2`](https://solscan.io/account/83qAPrpq9vRUaK7ckuPSzfGra7FwgwDUA8Va1vqnQ9n2)
+- **A5000**
+  - **Liquidity Pool**: [`CqLgMR7KfbxtiQUiwtFYrnzoWH5DR1jU1tWswTXoSDrE`](https://solscan.io/account/CqLgMR7KfbxtiQUiwtFYrnzoWH5DR1jU1tWswTXoSDrE)
+  - **Collateral**: [`EdwyvA9PpSPhmDbQzMpVhSv6nod7oJj5VJ8YCnxPYBV1`](https://solscan.io/account/EdwyvA9PpSPhmDbQzMpVhSv6nod7oJj5VJ8YCnxPYBV1)
+- **RTX 4090**
+  - **Liquidity Pool**: [`Fx2vRruVymjf5GRTjyex6JjZ7Qc7jT2zPHy9cphm8z8c`](https://solscan.io/account/Fx2vRruVymjf5GRTjyex6JjZ7Qc7jT2zPHy9cphm8z8c)
+  - **Collateral**: [`6Lx1ZK7nLdYsEY7m56M6w5oK9qZq3678nKA5eDSFRmeH`](https://solscan.io/account/6Lx1ZK7nLdYsEY7m56M6w5oK9qZq3678nKA5eDSFRmeH)
+- **RTX 3090**
+  - **Liquidity Pool**: [`91Ehke2ftpt31AjFQg97wXLp7HdcZZEj4ToDWz77mjhf`](https://solscan.io/account/91Ehke2ftpt31AjFQg97wXLp7HdcZZEj4ToDWz77mjhf)
+  - **Collateral**: [`3guBMEF8uw9QFWFy2Ctg4nMr97GsnjdAwCjkQ5BhxNkA`](https://solscan.io/account/3guBMEF8uw9QFWFy2Ctg4nMr97GsnjdAwCjkQ5BhxNkA)

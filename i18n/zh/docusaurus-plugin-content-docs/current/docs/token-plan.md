@@ -8,9 +8,13 @@ $LOOPIN token 是 LooPIN 协议的核心加密货币和协议 token，主要用�
 
 ## Token 详情
 
-$LOOPIN token 在 Solana devnet 上的首次发行，是我们向以 GPU 共享为核心的去中心化金融（DeFi）架构迈进的关键一步。这一初步发行是主网部署前的测试和开发的基础。
+$LOOPIN token 在 Solana devnet 上的发行，并升级到 Solana 主网 和 Ethereum 主网， 是我们向以 GPU 共享为核心的去中心化金融（DeFi）架构迈进的关键一步。这一初步发行是主网部署前的测试和开发的基础。
 
-- **Token 链接：** [$LOOPIN on Solana Devnet](https://explorer.solana.com/address/5NKinmhNiUyQbxXXBKJz6t3w4Emg2D43e4PWoajMNEv7?cluster=devnet)
+- **Solana LooPIN代币 Address**: [`CHX3FSxGYSJ2LHeQTcGp2oMAoBNngtJ73jsuamMUnZQx`](https://solscan.io/token/CHX3FSxGYSJ2LHeQTcGp2oMAoBNngtJ73jsuamMUnZQx)
+- **Ethereum LooPIN代币 Address**: [`0x975dA7b2325F815F1dE23C8B68f721fb483B8071`](https://etherscan.io/token/0x975dA7b2325F815F1dE23C8B68f721fb483B8071)
+
+- **Solana NTT 跨链桥**: [`nTtyAzdYmpLwAWGWCK3PFqfrsKaPpZgbghy7qiqDb7H`](https://solscan.io/account/nTtyAzdYmpLwAWGWCK3PFqfrsKaPpZgbghy7qiqDb7H)
+- **Ethereum NTT 跨链桥**: [`0x6bE6CC3825f29EbBD014487B30512984b2C0cDf3`](https://etherscan.io/address/0x6bE6CC3825f29EbBD014487B30512984b2C0cDf3)
 
 ## Token 分发规则
 
@@ -45,10 +49,24 @@ $LOOPIN 代币的分配策略采用挖矿机制，旨在最大程度地确保公
 
 ## 用于 Token 分发的钱包地址
 
-- **财政地址（Devnet）：** `9TP5HkgZSN3KwhsvhssRpviNFVtAAupPXcz6dJSbCnxq`
-- **团队地址（Devnet）：** `6Vdj3NL7K3Mpum1oo5KZ6VLjaxi6QmHdAyFBkaf84ZQG`
-- **基金会地址（Devnet）：** `Cibq6gDmMxH7Xj6NHE7F3t8UgpwyPb7U1M258SrC7tbF`
+- **财政地址：** [`9TP5HkgZSN3KwhsvhssRpviNFVtAAupPXcz6dJSbCnxq`](https://solscan.io/account/9TP5HkgZSN3KwhsvhssRpviNFVtAAupPXcz6dJSbCnxq)
+- **团队地址：** [`6Vdj3NL7K3Mpum1oo5KZ6VLjaxi6QmHdAyFBkaf84ZQG`](https://solscan.io/account/6Vdj3NL7K3Mpum1oo5KZ6VLjaxi6QmHdAyFBkaf84ZQG)
+- **基金会地址：** [`Cibq6gDmMxH7Xj6NHE7F3t8UgpwyPb7U1M258SrC7tbF`](https://solscan.io/account/Cibq6gDmMxH7Xj6NHE7F3t8UgpwyPb7U1M258SrC7tbF)
 
-## 关于 Token 过渡的说明
+## GPU地址
 
-目前在 devnet 中的 tokens 是我们 beta 测试的一部分。这些 tokens 将为我们向主网过渡时，让早期支持者和测试者在主网环境中占有一席之地。
+- **A100**
+    - **Liquidity Pool**: [`CG9yXB47xQ9a4LjXbTVMurwFNw27aB9aazxQpwRpShc1`](https://solscan.io/account/CG9yXB47xQ9a4LjXbTVMurwFNw27aB9aazxQpwRpShc1)
+    - **Collateral**: [`2hzVfnknEUPSmSrJr77ju8jsgXcJ5rb3RSNBhQLdhSaz`](https://solscan.io/account/2hzVfnknEUPSmSrJr77ju8jsgXcJ5rb3RSNBhQLdhSaz)
+- **A6000**
+    - **Liquidity Pool**: [`4WftfwM34qLwDbB9szL9Mpzjeso8hgRnHsgsLbtYCfWU`](https://solscan.io/account/4WftfwM34qLwDbB9szL9Mpzjeso8hgRnHsgsLbtYCfWU)
+    - **Collateral**: [`83qAPrpq9vRUaK7ckuPSzfGra7FwgwDUA8Va1vqnQ9n2`](https://solscan.io/account/83qAPrpq9vRUaK7ckuPSzfGra7FwgwDUA8Va1vqnQ9n2)
+- **A5000**
+    - **Liquidity Pool**: [`CqLgMR7KfbxtiQUiwtFYrnzoWH5DR1jU1tWswTXoSDrE`](https://solscan.io/account/CqLgMR7KfbxtiQUiwtFYrnzoWH5DR1jU1tWswTXoSDrE)
+    - **Collateral**: [`EdwyvA9PpSPhmDbQzMpVhSv6nod7oJj5VJ8YCnxPYBV1`](https://solscan.io/account/EdwyvA9PpSPhmDbQzMpVhSv6nod7oJj5VJ8YCnxPYBV1)
+- **RTX 4090**
+    - **Liquidity Pool**: [`Fx2vRruVymjf5GRTjyex6JjZ7Qc7jT2zPHy9cphm8z8c`](https://solscan.io/account/Fx2vRruVymjf5GRTjyex6JjZ7Qc7jT2zPHy9cphm8z8c)
+    - **Collateral**: [`6Lx1ZK7nLdYsEY7m56M6w5oK9qZq3678nKA5eDSFRmeH`](https://solscan.io/account/6Lx1ZK7nLdYsEY7m56M6w5oK9qZq3678nKA5eDSFRmeH)
+- **RTX 3090**
+    - **Liquidity Pool**: [`91Ehke2ftpt31AjFQg97wXLp7HdcZZEj4ToDWz77mjhf`](https://solscan.io/account/91Ehke2ftpt31AjFQg97wXLp7HdcZZEj4ToDWz77mjhf)
+    - **Collateral**: [`3guBMEF8uw9QFWFy2Ctg4nMr97GsnjdAwCjkQ5BhxNkA`](https://solscan.io/account/3guBMEF8uw9QFWFy2Ctg4nMr97GsnjdAwCjkQ5BhxNkA)
