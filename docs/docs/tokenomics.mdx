@@ -1,0 +1,693 @@
+---
+sidebar_position: 3
+---
+
+# $LOOPIN Tokenomics
+
+import Head from '@docusaurus/Head';
+
+<Head>
+  <script src="https://widgets.coingecko.com/gecko-coin-ticker-widget.js"></script>
+</Head>
+
+## 1. Overview
+
+The $LOOPIN token is the core cryptocurrency and protocol token of the LooPIN protocol, primarily serving as the incentive mechanism within the LooPIN ecosystem. The token is designed to facilitate the seamless exchange of computing resources and promote the efficient utilization of GPU power across the network.
+
+<div className="coingecko-widget">
+  <gecko-coin-ticker-widget 
+    locale="en" 
+    dark-mode="true" 
+    outlined="true" 
+    coin-id="loopin-network" 
+    initial-currency="usd"
+  />
+</div>
+
+## 2. Token Fundamentals
+
+### 2.1 Token Addresses
+
+- **Solana Token Address**: [`CHX3FSxGYSJ2LHeQTcGp2oMAoBNngtJ73jsuamMUnZQx`](https://solscan.io/token/CHX3FSxGYSJ2LHeQTcGp2oMAoBNngtJ73jsuamMUnZQx)
+- **Ethereum Token Address**: [`0x975dA7b2325F815F1dE23C8B68f721fb483B8071`](https://etherscan.io/token/0x975dA7b2325F815F1dE23C8B68f721fb483B8071)
+
+#### Bridge Addresses
+- **Solana NTT Bridge**: [`nTtyAzdYmpLwAWGWCK3PFqfrsKaPpZgbghy7qiqDb7H`](https://solscan.io/account/nTtyAzdYmpLwAWGWCK3PFqfrsKaPpZgbghy7qiqDb7H)
+- **Ethereum NTT Bridge**: [`0x6bE6CC3825f29EbBD014487B30512984b2C0cDf3`](https://etherscan.io/address/0x6bE6CC3825f29EbBD014487B30512984b2C0cDf3)
+
+#### Burn Address
+- **Solana Token Burn Address**: [`BuRNDNzpsdWyyj2pgwfYsdsuqjGuzk2R8t67tKPoUwP3`](https://solscan.io/account/BuRNDNzpsdWyyj2pgwfYsdsuqjGuzk2R8t67tKPoUwP3)
+
+### 2.2 Launch Information
+
+The initial launch of the $LOOPIN token occurred on the Solana devnet, migrating to Solana mainnet and Ethereum ([Cross-chain bridge information](/docs/mainnet/bridge)), marking a pivotal step in our approach to a decentralized finance (DeFi) framework focused on GPU power sharing.
+
+## 3. Tokenomics Model
+
+### 3.1 Token Distribution
+
+The distribution strategy for $LOOPIN tokens is designed to ensure maximum fairness and decentralization through a mining-based approach:
+
+- **100% to Mining**: The entire token supply is distributed through mining, promoting a fair launch and widespread participation in the ecosystem.
+
+### 3.2 Block Fee Allocation
+
+- **70% to GPU Miners**: The majority of block fees are returned to the miners, rewarding their crucial role in infrastructure support and network stability.
+- **20% to Ecosystem Development**: 
+  - Stored in the foundation wallet
+  - Used for exchange listings, donations, and ecosystem support
+  - Controlled by DAO voting for each expenditure
+- **10% to the Team**: Supporting core developers of the PinFi protocol (Lock for 5 years)
+
+### 3.3 Token Supply and Emission
+
+- **Max Supply**: 73,000,000 $LOOPIN tokens
+- **Daily Emission**: 10,000 $LOOPIN (halves yearly)
+- **Distribution**:
+  - 70% to Community
+  - 20% to Foundation
+  - 10% to Team
+
+### 3.4 Emission Schedule Visualization
+
+The following chart shows the daily token emission schedule and distribution:
+
+import { Area, AreaChart, Bar, CartesianGrid, ComposedChart, ResponsiveContainer, Tooltip, XAxis, YAxis, ReferenceLine } from "recharts"
+import React from 'react'
+
+export const EmissionChart = () => {
+  const startDate = new Date('2024-04-09')
+  const endDate = new Date('2029-04-09')
+  const today = new Date()
+  const [dateRange, setDateRange] = React.useState({
+    from: startDate,
+    to: endDate
+  })
+  const [hoveredDate, setHoveredDate] = React.useState(null)
+
+  const calculateEmission = (date) => {
+    const yearsPassed = Math.floor((date - startDate) / (365 * 24 * 60 * 60 * 1000))
+    const dailyEmission = 10000 / Math.pow(2, yearsPassed)
+    return {
+      total: dailyEmission,
+      team: dailyEmission * 0.1,
+      foundation: dailyEmission * 0.2,
+      community: dailyEmission * 0.7
+    }
+  }
+
+  const getData = () => {
+    const data = []
+    let currentDate = dateRange.from
+    while (currentDate <= dateRange.to) {
+      const emission = calculateEmission(currentDate)
+      data.push({
+        date: currentDate.toISOString().split('T')[0],
+        ...emission
+      })
+      currentDate = new Date(currentDate.getTime() + 24 * 60 * 60 * 1000)
+    }
+    return data
+  }
+
+  const CustomTooltip = ({ active, payload, label }) => {
+    if (active && payload && payload.length) {
+      const tooltipStyles = {
+        backgroundColor: '#1c1e21',
+        border: '1px solid rgba(255, 255, 255, 0.1)',
+        borderRadius: '8px',
+        padding: '12px',
+        boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+      }
+
+      const labelStyles = {
+        color: '#ffffff',
+        margin: '0 0 8px 0',
+        fontFamily: 'var(--ifm-font-family-base)',
+        fontSize: '14px',
+        fontWeight: '500',
+      }
+
+      const valueStyles = {
+        margin: '4px 0',
+        fontFamily: 'var(--ifm-font-family-base)',
+        fontSize: '13px',
+        display: 'flex',
+        justifyContent: 'space-between',
+        gap: '12px',
+      }
+
+      return (
+        <div style={tooltipStyles}>
+          <p style={labelStyles}>
+            {new Date(label).toLocaleDateString(undefined, { 
+              year: 'numeric',
+              month: 'short',
+              day: 'numeric'
+            })}
+          </p>
+          {payload.map((entry, index) => (
+            <div key={index} style={valueStyles}>
+              <span style={{ color: entry.color }}>{entry.name}:</span>
+              <span style={{ color: '#ffffff' }}>{Math.round(entry.value).toLocaleString()}</span>
+            </div>
+          ))}
+        </div>
+      )
+    }
+    return null
+  }
+
+  // Get today's emission values
+  const todayEmission = calculateEmission(today)
+  const defaultTooltipContent = hoveredDate ? null : (
+    <div style={{
+      position: 'absolute',
+      right: '40px',
+      top: '20px',
+      backgroundColor: '#1c1e21',
+      border: '1px solid rgba(255, 255, 255, 0.1)',
+      borderRadius: '8px',
+      padding: '12px',
+      boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+      zIndex: 1000,
+      pointerEvents: 'none',
+    }}>
+      <p style={{
+        color: '#ffffff',
+        margin: '0 0 8px 0',
+        fontFamily: 'var(--ifm-font-family-base)',
+        fontSize: '14px',
+        fontWeight: '500',
+      }}>Today's Emission</p>
+      <div style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '4px',
+        fontSize: '13px',
+        fontFamily: 'var(--ifm-font-family-base)',
+      }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', gap: '12px' }}>
+          <span style={{ color: 'var(--ifm-color-primary)' }}>Community:</span>
+          <span style={{ color: '#ffffff' }}>{Math.round(todayEmission.community).toLocaleString()}</span>
+        </div>
+        <div style={{ display: 'flex', justifyContent: 'space-between', gap: '12px' }}>
+          <span style={{ color: 'var(--ifm-color-success)' }}>Foundation:</span>
+          <span style={{ color: '#ffffff' }}>{Math.round(todayEmission.foundation).toLocaleString()}</span>
+        </div>
+        <div style={{ display: 'flex', justifyContent: 'space-between', gap: '12px' }}>
+          <span style={{ color: 'var(--ifm-color-warning)' }}>Team:</span>
+          <span style={{ color: '#ffffff' }}>{Math.round(todayEmission.team).toLocaleString()}</span>
+        </div>
+      </div>
+    </div>
+  )
+
+  return (
+    <div className="card margin-bottom--lg">
+      <div className="card__body padding--lg" style={{ position: 'relative' }}>
+        <h3 className="margin-bottom--md">Daily Token Emission</h3>
+        <div style={{ fontSize: 'var(--ifm-font-size-base)', color: 'var(--ifm-color-emphasis-600)' }} className="margin-bottom--md">
+          Showing emission from {startDate.toLocaleDateString()} to {endDate.toLocaleDateString()}
+        </div>
+        {defaultTooltipContent}
+        <ResponsiveContainer width="100%" height={400}>
+          <AreaChart 
+            data={getData()} 
+            margin={{ top: 20, right: 30, left: 0, bottom: 0 }}
+            onMouseMove={(data) => {
+              if (data.activePayload) {
+                setHoveredDate(new Date(data.activePayload[0].payload.date))
+              }
+            }}
+            onMouseLeave={() => setHoveredDate(null)}
+          >
+            <defs>
+              <linearGradient id="colorCommunity" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="5%" stopColor="var(--ifm-color-primary)" stopOpacity={0.8}/>
+                <stop offset="95%" stopColor="var(--ifm-color-primary)" stopOpacity={0.1}/>
+              </linearGradient>
+              <linearGradient id="colorFoundation" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="5%" stopColor="var(--ifm-color-success)" stopOpacity={0.8}/>
+                <stop offset="95%" stopColor="var(--ifm-color-success)" stopOpacity={0.1}/>
+              </linearGradient>
+              <linearGradient id="colorTeam" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="5%" stopColor="var(--ifm-color-warning)" stopOpacity={0.8}/>
+                <stop offset="95%" stopColor="var(--ifm-color-warning)" stopOpacity={0.1}/>
+              </linearGradient>
+            </defs>
+            <XAxis 
+              dataKey="date" 
+              tick={{ fill: 'var(--ifm-color-emphasis-600)' }}
+              tickFormatter={(date) => new Date(date).toLocaleDateString(undefined, { month: 'short' })}
+              style={{ fontFamily: 'var(--ifm-font-family-base)' }}
+            />
+            <YAxis 
+              tick={{ fill: 'var(--ifm-color-emphasis-600)' }}
+              style={{ fontFamily: 'var(--ifm-font-family-base)' }}
+            />
+            <Tooltip content={<CustomTooltip />} />
+            <ReferenceLine
+              x={today.toISOString().split('T')[0]}
+              stroke="var(--ifm-color-emphasis-500)"
+              strokeDasharray="3 3"
+              label={{ 
+                value: 'Today',
+                position: 'top',
+                fill: 'var(--ifm-color-emphasis-600)',
+                fontSize: 12,
+                fontFamily: 'var(--ifm-font-family-base)'
+              }}
+            />
+            <Area 
+              type="monotone" 
+              dataKey="community" 
+              stackId="1" 
+              stroke="var(--ifm-color-primary)" 
+              fill="url(#colorCommunity)" 
+              name="Community"
+            />
+            <Area 
+              type="monotone" 
+              dataKey="foundation" 
+              stackId="1" 
+              stroke="var(--ifm-color-success)" 
+              fill="url(#colorFoundation)" 
+              name="Foundation"
+            />
+            <Area 
+              type="monotone" 
+              dataKey="team" 
+              stackId="1" 
+              stroke="var(--ifm-color-warning)" 
+              fill="url(#colorTeam)" 
+              name="Team"
+            />
+          </AreaChart>
+        </ResponsiveContainer>
+      </div>
+    </div>
+  )
+}
+
+<EmissionChart />
+
+## 4. Token Utility
+
+The $LOOPIN token serves multiple purposes within the ecosystem:
+
+- **Staking**: GPU providers can stake tokens to participate in network validation and earn rewards
+- **Governance**: Token holders can vote on proposals that influence the development and operational aspects of the network
+
+## 5. PoCPS (Proof-of-Computing-Power-Staking)
+
+While the original PoCPS is a robust Proof of Work (PoW) algorithm designed to prevent several major attack vectors, it does not address the critical needs of stability, scalability, or privacy. To tackle these challenges while maintaining the PoW foundation of our protocol, we've extended the original PoCPS framework to include:
+
+$$
+\text{PoCPS} = \text{PoT}\times\text{PoL}\times\text{PoP}\times\text{PoW}
+$$
+
+Where:
+
+- **PoT (Proof-of-Time)** addresses time-based stability testing,
+- **PoL (Proof-of-Loyalty)** focuses on liquidity management and control,
+- **PoP (Proof-of-Privacy)** enhances privacy safeguards for user data, and
+- **PoW (Proof-of-Work)** represents the original PoCPS proposed in our whitepaper.
+
+This new structure aims to improve stability, scalability, and privacy while preserving the core elements of our protocol.
+
+The PoT, PoL, PoP, and PoW can be defined as follows:
+
+**PoT (Proof-of-Time):**
+The Proof-of-Time rewards are based on how long a node has been part of the protocol. The longer a node remains active, the greater the rewards it can earn, capped by the number of nodes in the network. The formula for PoT is:
+$$
+\text{PoT} = \exp\left[\alpha\frac{\min(0, t-T_0)}{T_0}\right]
+$$
+
+Where
+
+- $t$ is the time the node has been in the protocol,
+- $T_0$ is the ramp-up period after which a node receives full rewards,
+- $\alpha$ determines the rewards for new nodes.
+
+Currently,
+
+- $\alpha = 2.303$ meaning that a newly added node can earn 10% of the total rewards until $t \geq T_0$, and
+- $T_0 = 30$ days in the main net phase.
+
+**PoL (Proof-of-Loyalty):**
+The Proof-of-Loyalty is related to how much of the LooPIN token the node has sold. Nodes that sell more tokens show lower loyalty and thus receive lower rewards. The formula for PoL is:
+$$
+\text{PoL} = \exp\left[\beta\frac{\min(0, C_{\text{\tiny held}} - C_{\text{\tiny minted}})}{C_{\text{\tiny minted}}}\right]
+$$
+
+Where
+
+- $C_{\text{\tiny held}}$ is the current amount of LooPIN tokens held by the node,
+- $C_{\text{\tiny minted}}$ is the total amount of LooPIN tokens minted by the node over its lifespan,
+- $\beta$ controls the reward reduction for nodes that have sold a significant portion of their tokens.
+
+Currently $\beta = 7.324$.
+
+**PoP (Proof-of-Privacy):**
+The Proof-of-Privacy rewards nodes based on how well they protect user data. Nodes that maintain higher privacy standards receive higher rewards. The formula for PoP is:
+$$
+\text{PoP} = \exp\left[\gamma\frac{\min(0, P - P_{\text{\tiny limit}})}{P_{\text{\tiny limit}}}\right]
+$$
+
+Where
+
+- $P$ is the node's privacy level,
+- $P_{\text{\tiny limit}}$ is the benchmark privacy level,
+- $\gamma$ determines the reward reduction for nodes with lower privacy standards.
+
+Currently $\gamma = \alpha = 2.303$.
+
+**PoW (Proof-of-Work):**
+The Proof-of-Work rewards are based on the performance of the node compared to similar GPUs in the network. Nodes with better performance receive higher rewards. The formula for PoW is:
+$$
+\text{PoW} = \exp\left[\delta\frac{\min(0, W - W_{\text{\tiny benchmark}})}{W_{\text{\tiny benchmark}}}\right]
+$$
+
+Where
+
+- $W$ is the performance level of the node,
+- $W_{\text{\tiny benchmark}}$ is the benchmark performance level,
+- $\delta$ determines the reward reduction for underperforming nodes.
+
+Currently $\delta = \beta = 7.324$.
+
+## 6. GPU Staking Rewards
+
+export const MOCK_GPU_DATA = [
+    {
+        "contAddr": "Fx2vRruVymjf5GRTjyex6JjZ7Qc7jT2zPHy9cphm8z8c",
+        "createdAt": "2024-04-09T01:04:16.204Z",
+        "name": "RTX 4090",
+        "symbol": "RTX 4090",
+        "earn": 21.49890938182767,
+        "price": 0.546921460322658
+    },
+    {
+        "contAddr": "CG9yXB47xQ9a4LjXbTVMurwFNw27aB9aazxQpwRpShc1",
+        "createdAt": "2024-04-09T01:04:23.405Z",
+        "name": "A100",
+        "symbol": "A100",
+        "earn": 52.264960206846574,
+        "price": 1.305099604028328
+    },
+    {
+        "contAddr": "91Ehke2ftpt31AjFQg97wXLp7HdcZZEj4ToDWz77mjhf",
+        "createdAt": "2024-04-09T01:04:09.311Z",
+        "name": "RTX 3090",
+        "symbol": "RTX 3090",
+        "earn": 11.670573469396292,
+        "price": 0.2950129277737086
+    },
+    {
+        "contAddr": "CqLgMR7KfbxtiQUiwtFYrnzoWH5DR1jU1tWswTXoSDrE",
+        "createdAt": "2024-04-09T01:04:27.830Z",
+        "name": "A5000",
+        "symbol": "A5000",
+        "earn": 11.553857169245754,
+        "price": 0.2934907100563521
+    },
+    {
+        "contAddr": "4WftfwM34qLwDbB9szL9Mpzjeso8hgRnHsgsLbtYCfWU",
+        "createdAt": "2024-11-13T17:27:17.360Z",
+        "name": "A6000",
+        "symbol": "A6000",
+        "earn": 32.44357246921183,
+        "price": 0.8241305895749067
+    },
+    {
+        "contAddr": "HNNMSX5MKhoH76r9p4wUeJ7EKDJkRHLvsenooofAdJLQ",
+        "createdAt": "2024-11-13T17:27:17.360Z",
+        "name": "H100",
+        "symbol": "H100",
+        "earn": 157.40616335451878,
+        "price": 3.9984263240813362
+    }
+]
+
+export const GPURewardsChart = () => {
+  const [selectedGPU, setSelectedGPU] = React.useState(MOCK_GPU_DATA[0].symbol)
+  const [holdPercentage, setHoldPercentage] = React.useState(100)
+  const [gpuData, setGpuData] = React.useState(MOCK_GPU_DATA)
+  const [isLoading, setIsLoading] = React.useState(true)
+
+  React.useEffect(() => {
+    fetch('/api/data/public/liquidityPool')
+      .then(response => response.json())
+      .then(data => {
+        setGpuData(data)
+        setSelectedGPU(data[0]?.symbol || MOCK_GPU_DATA[0].symbol)
+        setIsLoading(false)
+      })
+      .catch(error => {
+        console.error('Error fetching GPU data:', error)
+        setGpuData(MOCK_GPU_DATA)
+        setIsLoading(false)
+      })
+  }, [])
+
+  const calculatePoL = (holdPercentage) => {
+    return Math.exp(7.324 * Math.min(0, holdPercentage/100 - 1))
+  }
+
+  const calculateRewards = (standardReward, day) => {
+    // First calculate time-based multiplier
+    const timeMultiplier = Math.exp(2.303 * Math.min(0, day - 30) / 30)
+    // Then calculate PoL multiplier based on hold percentage
+    const polMultiplier = calculatePoL(holdPercentage)
+    
+    // Calculate time-based rewards
+    const timeBasedReward = standardReward * timeMultiplier
+    // Calculate actual rewards after applying PoL
+    const actualReward = timeBasedReward * polMultiplier
+    // Burned rewards is the difference between standard rewards and actual rewards
+    const burnedReward = standardReward - actualReward
+    
+    return { actualReward, burnedReward }
+  }
+
+  const getData = () => {
+    const selectedGPUData = gpuData.find(gpu => gpu.symbol === selectedGPU)
+    if (!selectedGPUData) return []
+
+    const standardReward = selectedGPUData.earn
+    return Array.from({ length: 60 }, (_, i) => {
+      const day = i + 1
+      const { actualReward, burnedReward } = calculateRewards(standardReward, day)
+      return {
+        day: `Day ${day}`,
+        actualReward: actualReward,
+        burnedReward: burnedReward,
+        standardReward: standardReward
+      }
+    })
+  }
+
+  return (
+    <div className="card margin-bottom--lg">
+      <div className="card__body padding--lg" style={{ position: 'relative' }}>
+        <div className="row margin-bottom--md">
+          <div className="col col--12" style={{ textAlign: 'center' }}>
+            <h3 className="margin-bottom--sm">GPU Staking Rewards</h3>
+            <p className="margin-bottom--md" style={{ fontSize: '0.9rem', color: 'var(--ifm-color-emphasis-600)' }}>
+              Daily rewards calculation for different GPU models
+            </p>
+            <select
+              value={selectedGPU}
+              onChange={(e) => setSelectedGPU(e.target.value)}
+              className="button button--outline button--primary"
+              style={{
+                backgroundColor: '#1c1e21',
+                color: '#ffffff',
+                border: '1px solid rgba(255, 255, 255, 0.1)',
+                borderRadius: '8px',
+                padding: '8px 12px',
+                fontSize: '14px',
+                fontFamily: 'var(--ifm-font-family-base)',
+                marginBottom: '12px'
+              }}
+            >
+              {isLoading ? (
+                <option>Loading...</option>
+              ) : (
+                gpuData.map(gpu => (
+                  <option key={gpu.symbol} value={gpu.symbol}>{gpu.symbol}</option>
+                ))
+              )}
+            </select>
+            <div style={{ 
+              display: 'flex', 
+              flexDirection: 'column',
+              alignItems: 'center', 
+              gap: '8px',
+              marginTop: '16px',
+              width: '50%',
+              padding: '12px',
+              backgroundColor: 'rgba(0, 0, 0, 0.2)',
+              borderRadius: '8px',
+              border: '1px solid rgba(255, 255, 255, 0.1)',
+              margin: '16px auto'
+            }}>
+              <div style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                width: '100%',
+                marginBottom: '4px'
+              }}>
+                <span style={{ 
+                  fontSize: '0.9rem', 
+                  color: 'var(--ifm-color-emphasis-600)',
+                }}>
+                  $LOOPIN Hold: {holdPercentage}%
+                </span>
+                <span style={{ 
+                  fontSize: '0.9rem', 
+                  color: 'var(--ifm-color-emphasis-600)',
+                }}>
+                  PoL: {(calculatePoL(holdPercentage) * 100).toFixed(1)}%
+                </span>
+              </div>
+              <input
+                type="range"
+                min="0"
+                max="100"
+                value={holdPercentage}
+                onChange={(e) => setHoldPercentage(Number(e.target.value))}
+                style={{
+                  width: '100%',
+                  height: '8px',
+                  accentColor: 'var(--ifm-color-primary)',
+                  background: `linear-gradient(to right, var(--ifm-color-primary) 0%, var(--ifm-color-primary) ${holdPercentage}%, var(--ifm-color-emphasis-300) ${holdPercentage}%, var(--ifm-color-emphasis-300) 100%)`,
+                  borderRadius: '4px',
+                  cursor: 'pointer',
+                  '-webkit-appearance': 'none',
+                  appearance: 'none'
+                }}
+              />
+            </div>
+          </div>
+        </div>
+        <ResponsiveContainer width="100%" height={400}>
+          <ComposedChart 
+            data={getData()} 
+            margin={{ top: 20, right: 30, left: 0, bottom: 0 }}
+          >
+            <CartesianGrid stroke="var(--ifm-color-emphasis-300)" />
+            <XAxis 
+              dataKey="day"
+              tick={{ fill: 'var(--ifm-color-emphasis-600)' }}
+              style={{ fontFamily: 'var(--ifm-font-family-base)' }}
+            />
+            <YAxis 
+              tick={{ fill: 'var(--ifm-color-emphasis-600)' }}
+              style={{ fontFamily: 'var(--ifm-font-family-base)' }}
+            />
+            <Tooltip content={({ active, payload, label }) => {
+              if (active && payload && payload.length) {
+                const standardReward = payload[0]?.payload?.standardReward || 0
+                return (
+                  <div style={{
+                    backgroundColor: '#1c1e21',
+                    border: '1px solid rgba(255, 255, 255, 0.1)',
+                    borderRadius: '8px',
+                    padding: '12px',
+                    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+                  }}>
+                    <p style={{
+                      color: '#ffffff',
+                      margin: '0 0 8px 0',
+                      fontFamily: 'var(--ifm-font-family-base)',
+                      fontSize: '14px',
+                      fontWeight: '500',
+                    }}>{label}</p>
+                    <div style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      gap: '12px',
+                      margin: '4px 0',
+                      fontFamily: 'var(--ifm-font-family-base)',
+                      fontSize: '13px',
+                      borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
+                      paddingBottom: '4px',
+                      marginBottom: '4px'
+                    }}>
+                      <span style={{ color: 'var(--ifm-color-emphasis-500)' }}>Standard:</span>
+                      <span style={{ color: '#ffffff' }}>{standardReward.toFixed(2)}</span>
+                    </div>
+                    {payload.filter(p => p.dataKey !== 'standardReward').map((entry, index) => (
+                      <div key={index} style={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        gap: '12px',
+                        margin: '4px 0',
+                        fontFamily: 'var(--ifm-font-family-base)',
+                        fontSize: '13px',
+                      }}>
+                        <span style={{ color: entry.color }}>{entry.name}:</span>
+                        <span style={{ color: '#ffffff' }}>{entry.value.toFixed(2)}</span>
+                      </div>
+                    ))}
+                  </div>
+                )
+              }
+              return null
+            }} />
+            <Bar
+              dataKey="actualReward"
+              stackId="a"
+              fill="var(--ifm-color-primary)"
+              name="Actual Rewards"
+              fillOpacity={0.8}
+            />
+            <Bar
+              dataKey="burnedReward"
+              stackId="a"
+              fill="var(--ifm-color-danger)"
+              name="Burned Rewards"
+              fillOpacity={0.8}
+            />
+            <Bar
+              dataKey="standardReward"
+              fill="transparent"
+              stroke="none"
+              name="Standard Rewards"
+              hide={true}
+            />
+          </ComposedChart>
+        </ResponsiveContainer>
+      </div>
+    </div>
+  )
+}
+
+<GPURewardsChart />
+
+## 7. Official Wallet Addresses (Solana)
+
+- **Treasury Address**: [`9TP5HkgZSN3KwhsvhssRpviNFVtAAupPXcz6dJSbCnxq`](https://solscan.io/account/9TP5HkgZSN3KwhsvhssRpviNFVtAAupPXcz6dJSbCnxq)
+- **Team Address**: [`6Vdj3NL7K3Mpum1oo5KZ6VLjaxi6QmHdAyFBkaf84ZQG`](https://solscan.io/account/6Vdj3NL7K3Mpum1oo5KZ6VLjaxi6QmHdAyFBkaf84ZQG)
+- **Foundation Address**: [`Cibq6gDmMxH7Xj6NHE7F3t8UgpwyPb7U1M258SrC7tbF`](https://solscan.io/account/Cibq6gDmMxH7Xj6NHE7F3t8UgpwyPb7U1M258SrC7tbF)
+
+## 8. Market Metrics
+
+You can track $LOOPIN's market metrics on:
+- [Solscan](https://solscan.io/token/CHX3FSxGYSJ2LHeQTcGp2oMAoBNngtJ73jsuamMUnZQx#holders) - Current Supply and Holders
+- [DexScreener](https://dexscreener.com/ethereum/0x2ea180f8bf655c8983af7c8dd48bfb6942f79ee8) - Real-time Price and Trading Activity
+- [CoinGecko](https://www.coingecko.com/en/coins/loopin-network) - Market Data and Analytics
+
+### How to Calculate FDV and Market Cap
+
+#### Fully Diluted Valuation (FDV)
+```
+FDV = 73,000,000 (max supply) × Current Price
+```
+
+#### Market Capitalization (MC)
+```
+MC = Current Supply × 0.7 × Current Price
+```
