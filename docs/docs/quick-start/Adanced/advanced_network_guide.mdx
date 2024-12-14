@@ -1,0 +1,183 @@
+---
+sidebar_position: 1
+---
+
+# Advanced Network Guide
+
+## Overview
+
+This guide helps you bypass Carrier-Grade NAT (CGNAT) and other network restrictions when you can't modify port mapping rules or manage multiple rigs with a single public IP. By using a VPS with a public IP and a VPN service like ZeroTier, Tailscale, or Wireguard, you can redirect traffic to your rigs.
+
+:::tip Who is this guide for?
+- Users facing CGNAT or similar network limits
+- Those unable to change port mapping or forwarding rules due to ISP limitations
+- Users managing multiple rigs with one public IP
+:::
+
+:::info What you will achieve
+- Set up a secondary SSH service on your VPS
+- Configure Fail2Ban for SSH security
+- Establish a VPN connection between your VPS and rigs using ZeroTier
+- Redirect traffic through the VPN for external rig access
+- Install and configure Loopin on your rigs
+:::
+
+## Prerequisites
+
+:::warning Important Requirements
+- A VPS with a direct public IP (static or dynamic with DDNS)
+- Good to advanced Linux and networking skills
+- ZeroTier or similar VPN installed on both VPS and rigs
+- Familiarity with command-line and system configurations
+- IPv4 only -> **DISABLE IPV6** on the rig(s)
+:::
+
+:::caution Disclaimer
+This guide involves advanced network configurations that may affect connectivity and security. Proceed at your own risk. The author is not responsible for any damage, data loss, or security issues. Back up your configurations and understand each step before proceeding.
+:::
+
+## VPS Configuration Guide
+
+### 1. Setting Up Secondary SSH Service
+
+:::note Important
+Before modifying the SSH configuration, open at least two SSH sessions on your VPS and run htop in each to keep them active. This prevents timeout and ensures you can fix any issues if SSH fails.
+:::
+
+#### a. Install Second SSH Service on Port 2222
+
+```bash
+# Copy existing SSH configuration
+sudo cp /etc/ssh/sshd_config /etc/ssh/sshd_config_custom
+
+# Edit the custom configuration
+sudo nano /etc/ssh/sshd_config_custom
+# Comment out 'Port 22' and 'Include /etc/ssh/sshd_config.d/*.conf'
+# Add 'Port 2222'
+```
+
+#### b. Create Systemd Service
+
+Create a new service file:
+```bash
+sudo nano /etc/systemd/system/sshd-custom.service
+```
+
+Add the following content:
+```ini
+[Unit]
+Description=OpenBSD Secure Shell server (custom instance on port 2222)
+After=network.target
+
+[Service]
+ExecStart=/usr/sbin/sshd -D -f /etc/ssh/sshd_config_custom
+ExecReload=/usr/sbin/sshd -t
+KillMode=process
+Restart=on-failure
+RestartSec=42s
+
+[Install]
+WantedBy=multi-user.target
+```
+
+#### c. Enable and Start the Service
+
+```bash
+sudo systemctl daemon-reload
+sudo systemctl start sshd-custom.service
+sudo systemctl enable sshd-custom.service
+```
+
+### 2. Configuring Fail2Ban
+
+Create or edit the Fail2Ban configuration:
+```bash
+sudo nano /etc/fail2ban/jail.local
+```
+
+Add the following configuration:
+```ini
+[sshd-2222]
+enabled = true
+port = 2222
+filter = sshd
+logpath = /var/log/auth.log
+maxretry = 5
+bantime = 10m
+```
+
+Restart and verify Fail2Ban:
+```bash
+sudo systemctl restart fail2ban
+sudo fail2ban-client status
+```
+
+### 3. Network Configuration
+
+#### a. On the VPS
+
+Enable IP forwarding:
+```bash
+# Edit sysctl.conf
+sudo nano /etc/sysctl.conf
+# Add: net.ipv4.ip_forward = 1
+
+# Apply changes
+sudo sysctl -p
+```
+
+Configure iptables rules:
+```bash
+# Allow necessary ports
+sudo iptables -A INPUT -p tcp --dport 22 -j ACCEPT
+sudo iptables -A INPUT -p tcp --dport 2222 -j ACCEPT
+sudo iptables -A INPUT -p tcp --dport 9789 -j ACCEPT
+
+# Configure port forwarding (replace IPs with your actual values)
+# SSH Port
+sudo iptables -t nat -A PREROUTING -p tcp -d 163.172.xxx.x1 --dport 22 -j DNAT --to-destination 172.28.167.244:22
+sudo iptables -t nat -A POSTROUTING -p tcp -d 172.28.167.244 -j MASQUERADE
+
+# Kubernetes Ports
+sudo iptables -t nat -A PREROUTING -p tcp -d 163.172.xxx.x1 --dport 10250 -j DNAT --to-destination 172.28.167.244:10250
+sudo iptables -t nat -A POSTROUTING -p tcp -d 172.28.167.244 -j MASQUERADE
+
+sudo iptables -t nat -A PREROUTING -p tcp -d 163.172.xxx.x1 --dport 10256 -j DNAT --to-destination 172.28.167.244:10256
+sudo iptables -t nat -A POSTROUTING -p tcp -d 172.28.167.244 -j MASQUERADE
+
+# NodePort Range
+sudo iptables -t nat -A PREROUTING -p tcp -d 163.172.xxx.x1 --dport 30000:32767 -j DNAT --to-destination 172.28.167.244
+sudo iptables -t nat -A POSTROUTING -p tcp -d 172.28.167.244 -j MASQUERADE
+
+# Loopin Port
+sudo iptables -t nat -A PREROUTING -p tcp -d 163.172.xxx.x1 --dport 9789 -j DNAT --to-destination 172.28.167.244:9789
+sudo iptables -t nat -A POSTROUTING -p tcp -d 172.28.167.244 -j MASQUERADE
+```
+
+#### b. On the RIG
+
+Configure routing:
+```bash
+# Add default route through VPN
+sudo ip route add default via 172.28.99.114 dev <zerotier_interface>
+
+# Enable IP forwarding
+echo "net.ipv4.ip_forward = 1" | sudo tee -a /etc/sysctl.conf
+sudo sysctl -p
+```
+
+## Installing Loopin
+
+Execute these commands on your RIG:
+```bash
+curl -sS -o "./loopin" "https://files.loopin.network/loopin"
+sudo chmod +x loopin
+sudo ./loopin --code xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+```
+Replace the placeholder code with your actual Loopin code.
+
+:::tip Additional Notes
+1. **ZeroTier Interface**: Use `ip addr` to identify the correct interface name (e.g., zt0)
+2. **Route Configuration**: Consider redirecting only necessary traffic if you want to optimize network performance
+3. **Security**: Install Fail2Ban on both VPS and RIG for enhanced security
+:::

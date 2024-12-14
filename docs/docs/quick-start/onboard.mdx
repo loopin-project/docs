@@ -13,80 +13,94 @@ import videoUrl from './Onboard.mp4'
     <ReactPlayer controls url={videoUrl} />
 </div>
 
-## Prerequisites
+## 1. System Requirements
 
 Before you get started, ensure you meet the following requirements:
 
-- A stable network connection and open ports for cluster access.
-- An **Ubuntu system** with **Nvidia GPUs** installed, as currently, LooPIN only supports this configuration.
+- A stable network connection and open ports for cluster access
+- An **Ubuntu system** with **Nvidia GPUs** installed, as currently, LooPIN only supports this configuration
+- **Ubuntu 22.04 LTS** is recommended
 
-## Onboarding Process
+## 2. Installation Process
 
-Follow our **onboard interactive video** for a quick and easy setup.
-
-### Steps to Join LooPIN
-
+### A. Initial Setup
 1. **Register on LooPIN**: Head over to [loopin.network](https://loopin.network) and sign up using your email or Google account.
 2. **Prepare Your Machine**: Ensure you have a bare metal machine with an Nvidia GPU. Navigate to the "server" section on the navbar and click on "Deploy a new machine".
-3. **CLI Worker Registration**:
- - Open a terminal on your Ubuntu system.
- - Run the following command to register your machine as a LooPIN worker (Find it in your guidance page):
+
+### B. CLI Worker Registration
+1. Open a terminal on your Ubuntu system.
+2. Run the following command to register your machine as a LooPIN worker (Find it in your guidance page):
 ```bash
 curl -fsSL https://files.loopin.network/install.sh | sudo bash -s -- --code <your-unique-code> --ip <your-ip>
 ```
- - This command downloads and executes the LooPIN installation script, registering your machine with the provided unique code. (Optional) You can also provide your machine’s IP address—usually, the script auto-detects it.
-4. **Installation and Verification**: The script will check if your machine meets the requirements and will install necessary drivers, including the Nvidia GPU driver. It will then verify your setup and register your worker. Upon successful installation, you should see the message:
+This command downloads and executes the LooPIN installation script, registering your machine with the provided unique code. (Optional) You can also provide your machine's IP address—usually, the script auto-detects it.
+
+### C. Verification
+The script will check if your machine meets the requirements and will install necessary drivers, including the Nvidia GPU driver. It will then verify your setup and register your worker. Upon successful installation, you should see the message:
 ```bash
 LooPIN Client Connected! Waiting for the on-chain verification...
 ```
 This indicates that the client application is installed and awaiting connection. The first-time connection may take approximately 5-10 minutes, depending on your network speed.
 
-5. **Join the Cluster**: Once your machine connects to our cluster and shows an online tag, you are ready to contribute your idle GPU hours to the pool or engage in liquidity swapping.
+## 3. Post-Installation Checks
 
-## How to Uninstall LooPIN from Your Machine
-
-If you've decided to stop using LooPIN or need to remove LooPIN for any reason, this guide will walk you through the uninstallation process.
-
-### Uninstallation Process
-
-To uninstall LooPIN, we'll use a simple shell script. Here's how to do it:
-
-1. Open your terminal or command prompt.
-
-2. (Optional) If you don't have loopin executable file, you can download it from the official LooPIN network.
-
+### A. Worker Status Check
+When you see "ok connected on port 9789," immediately check the worker status:
+```bash
+sudo systemctl status loopin-worker.service
 ```
+If it shows error EOF, restart it immediately:
+```bash
+sudo systemctl restart loopin-worker.service
+```
+
+### B. Host Configuration
+Ensure your `/etc/hosts` file contains:
+```bash
+159.69.58.107    easzlab.io.local
+```
+You can verify this using:
+```bash
+cat /etc/hosts
+```
+:::note
+- No reboot is needed to apply this change
+- This needs to be checked at each installation or reinstallation of LooPIN
+- If you use HiveOS, note that HiveOS resets the `/etc/hosts` file on every reboot
+:::
+
+### C. Monitoring Commands
+You can use these commands to detect potential issues:
+```bash
+sudo journalctl -u containerd -n 5 -f 
+sudo journalctl -u kubelet -n 5 -f 
+sudo journalctl -u loopin-worker -n 5 -f
+```
+
+## 4. Uninstallation Process
+
+If you need to remove LooPIN from your system, follow these steps:
+
+1. (Optional) Download the loopin executable if you don't have it:
+```bash
 curl -fsSL https://files.loopin.network/loopin -o loopin && chmod +x loopin
 ```
 
-3. Runs the script with `--uninstall` flag:
-
-```
+2. Run the uninstallation command:
+```bash
 sudo ./loopin --uninstall
-   ```
+```
 
 ### What the Uninstallation Does
-
-When you run this command, it will:
+The uninstallation process will:
 1. Delete the LooPIN controller access
 2. Remove the loopin-worker from your system
 
-After running the command, you should see output similar to this:
-
-```
+You should see output similar to:
+```bash
 Uninstalling LooPIN components...
 Removed LooPIN controller access
 Removed /etc/systemd/system/multi-user.target.wants/loopin-worker.service.
 Stopped and removed LooPIN worker service.
 Removed LooPIN worker executable.
 👋 LooPIN has been successfully uninstalled from your system.
-```
-
-## What You'll Need
-
-For a smooth setup, ensure you have:
-
-- **A stable internet connection** to download necessary files and communicate with the LooPIN network.
-- **An Ubuntu system with Nvidia GPUs**: This is crucial for the hardware compatibility with LooPIN's requirements.
-
-By following these steps, you'll be fully set to start leveraging your hardware on the LooPIN network.

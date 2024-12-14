@@ -205,7 +205,7 @@ export const EmissionChart = () => {
 
   return (
     <div className="card margin-bottom--lg">
-      <div className="card__body padding--lg" style={{ position: 'relative' }}>
+      <div className="card__body padding--lg" style={{ position: 'relative', margin: '-1rem' }}>
         <h3 className="margin-bottom--md">Daily Token Emission</h3>
         <div style={{ fontSize: 'var(--ifm-font-size-base)', color: 'var(--ifm-color-emphasis-600)' }} className="margin-bottom--md">
           Showing emission from {startDate.toLocaleDateString()} to {endDate.toLocaleDateString()}
@@ -490,7 +490,7 @@ export const GPURewardsChart = () => {
 
   return (
     <div className="card margin-bottom--lg">
-      <div className="card__body padding--lg" style={{ position: 'relative' }}>
+      <div className="card__body padding--lg" style={{ position: 'relative', margin: '-1rem' }}>
         <div className="row margin-bottom--md">
           <div className="col col--12" style={{ textAlign: 'center' }}>
             <h3 className="margin-bottom--sm">GPU Staking Rewards</h3>
@@ -666,6 +666,8 @@ export const GPURewardsChart = () => {
 }
 
 <GPURewardsChart />
+
+Alternatively, [loopinrewards.ddns.net](https://loopinrewards.ddns.net/) is a community-contributed tool by mod Stef to calculate potential GPU mining rewards. This unofficial tool provides real-time estimates of monthly earnings based on current Loopin prices and includes interactive charts for daily rewards visualization. (As a community contribution, use at your own discretion.)
 
 ## 7. Official Wallet Addresses (Solana)
 

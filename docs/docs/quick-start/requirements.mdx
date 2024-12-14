@@ -27,22 +27,15 @@ LooPIN network operates on top of Kubernetes (K8S). The table below outlines the
 | TCP      | Inbound   | 10256       | kube-proxy        | Self, Load balancers |
 | TCP      | Inbound   | 30000-32767 | NodePort Services | All                  |
 
+You can read this guide to learn how to expose ports: https://www.noip.com/support/knowledgebase/general-port-forwarding-guide 
+
 ## Supported GPUs for Staking Rewards
 
-Currently, we only support the following GPUs for staking rewards. Upon new machines registered and online, we will airdrop the following tokens for the initial setup (enough for the first 24 hours of staking):
+Currently, we only support the following GPUs for staking rewards:
 
-| GPU        | $LOOPIN Tokens |
-| ---------- | -------------- |
-| RTX 3080   | 5              |
-| RTX 3090   | 7              |
-| RTX 4090   | 15             |
-| A100       | 50             |
-| A5000      | 7              |
-| RTX 4070   | 7              |
-| Tesla V100 | 7              |
-| Tesla T4   | 2              |
-| RTX 3070   | 5              |
-| RTX 4080   | 10             |
+| GPU        | RTX 4090   | RTX 3090   | A100       | A5000      | A6000      | H100       |
+|------------|------------|------------|------------|------------|------------|------------|
+| Status     | Supported  | Supported  | Supported  | Supported  | Supported  | Supported  |
 
 This list will be updated over time as we add support for more GPUs.
 
