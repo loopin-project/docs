@@ -62,7 +62,7 @@ The distribution strategy for $LOOPIN tokens is designed to ensure maximum fairn
 ### 3.3 Token Supply and Emission
 
 - **Max Supply**: 73,000,000 $LOOPIN tokens
-- **Daily Emission**: 10,000 $LOOPIN (halves yearly)
+- **Daily Emission**: 100,000 $LOOPIN (halves yearly)
 - **Distribution**:
   - 70% to Community
   - 20% to Foundation
@@ -87,7 +87,7 @@ export const EmissionChart = () => {
 
   const calculateEmission = (date) => {
     const yearsPassed = Math.floor((date - startDate) / (365 * 24 * 60 * 60 * 1000))
-    const dailyEmission = 10000 / Math.pow(2, yearsPassed)
+    const dailyEmission = 100000 / Math.pow(2, yearsPassed)
     return {
       total: dailyEmission,
       team: dailyEmission * 0.1,
