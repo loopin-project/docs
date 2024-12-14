@@ -29,7 +29,7 @@ const config: Config = {
   // useful metadata like html lang.
   i18n: {
     defaultLocale: 'en',
-    locales: ['en'],
+    locales: ['en', 'zh'],
   },
 
   presets: [
