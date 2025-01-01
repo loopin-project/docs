@@ -59,30 +59,27 @@ const config: Config = {
       return {
         name: 'docusaurus-plugin-proxy',
         configureWebpack(config, isServer, utils) {
-          if (!isServer) {  // Only apply proxy in development client
-            return {
-              mergeStrategy: { "devServer.proxy": "replace" },
-              devServer: {
-                proxy: {
-                  '/api': {  // Changed to match all /api routes
-                    target: 'https://www.loopin.network',
-                    secure: false,
-                    changeOrigin: true,
-                    logLevel: 'debug',
-                    onProxyReq: (proxyReq) => {
-                      // Log the outgoing request for debugging
-                      console.log('Proxying to:', proxyReq.path);
-                    },
-                    onProxyRes: (proxyRes) => {
-                      // Log the response status
-                      console.log('Proxy response status:', proxyRes.statusCode);
-                    },
+          return {
+            mergeStrategy: { "devServer.proxy": "replace" },
+            devServer: {
+              proxy: {
+                '/api': {  // Changed to match all /api routes
+                  target: 'https://www.loopin.network',
+                  secure: false,
+                  changeOrigin: true,
+                  logLevel: 'debug',
+                  onProxyReq: (proxyReq) => {
+                    // Log the outgoing request for debugging
+                    console.log('Proxying to:', proxyReq.path);
+                  },
+                  onProxyRes: (proxyRes) => {
+                    // Log the response status
+                    console.log('Proxy response status:', proxyRes.statusCode);
                   },
                 },
               },
-            };
-          }
-          return {};
+            },
+          };
         },
       };
     },
